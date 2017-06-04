@@ -93,12 +93,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="今天发现了一篇长文：GUI 应用程序架构的十年变迁：MVC、MVP、MVVM、Unidirectional、Clean，对于MV*模式解释的十分详尽。我对文中一些内容进行了笔记，并且将Android部分结合代码希望能更深入的理解。 所有代码来自Github仓库: https://github.com/ivacf/archi MV*模式中的三种元素Model：负责操纵数据。 View：负责将渲染数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android中的MVP与MVVM">
+<meta property="og:url" content="http://yoursite.com/2017/05/27/Android中的MVP与MVVM/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="今天发现了一篇长文：GUI 应用程序架构的十年变迁：MVC、MVP、MVVM、Unidirectional、Clean，对于MV*模式解释的十分详尽。我对文中一些内容进行了笔记，并且将Android部分结合代码希望能更深入的理解。 所有代码来自Github仓库: https://github.com/ivacf/archi MV*模式中的三种元素Model：负责操纵数据。 View：负责将渲染数据">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/v2-b5b871254258aca1a4c359c07a4b94c5_b.jpg">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/v2-f12fd8820ae23a57c688ddfdb4945dc2_b.jpg">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/v2-b94a224f58fae5c7bc00f93ab30d1856_b.jpg">
+<meta property="og:updated_time" content="2017-05-27T14:28:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Android中的MVP与MVVM">
+<meta name="twitter:description" content="今天发现了一篇长文：GUI 应用程序架构的十年变迁：MVC、MVP、MVVM、Unidirectional、Clean，对于MV*模式解释的十分详尽。我对文中一些内容进行了笔记，并且将Android部分结合代码希望能更深入的理解。 所有代码来自Github仓库: https://github.com/ivacf/archi MV*模式中的三种元素Model：负责操纵数据。 View：负责将渲染数据">
+<meta name="twitter:image" content="http://ooaqxiz7b.bkt.clouddn.com/v2-b5b871254258aca1a4c359c07a4b94c5_b.jpg">
 
 
 
@@ -126,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/05/27/Android中的MVP与MVVM/"/>
 
 
 
 
 
-  <title>Hexo</title>
+  <title>Android中的MVP与MVVM | Hexo</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -158,9 +166,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -243,9 +249,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -271,9 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/27/Android中的MVP与MVVM/" itemprop="url">Android中的MVP与MVVM</a></h1>
+          <h1 class="post-title" itemprop="name headline">Android中的MVP与MVVM</h1>
         
 
         <div class="post-meta">
@@ -320,9 +324,7 @@
       
 
       
-        
-          
-            <p>今天发现了一篇长文：<a href="https://zhuanlan.zhihu.com/p/26799645" target="_blank" rel="external">GUI 应用程序架构的十年变迁：MVC、MVP、MVVM、Unidirectional、Clean</a>，对于MV*模式解释的十分详尽。我对文中一些内容进行了笔记，并且将Android部分结合代码希望能更深入的理解。</p>
+        <p>今天发现了一篇长文：<a href="https://zhuanlan.zhihu.com/p/26799645" target="_blank" rel="external">GUI 应用程序架构的十年变迁：MVC、MVP、MVVM、Unidirectional、Clean</a>，对于MV*模式解释的十分详尽。我对文中一些内容进行了笔记，并且将Android部分结合代码希望能更深入的理解。</p>
 <p>所有代码来自Github仓库: <a href="https://github.com/ivacf/archi" target="_blank" rel="external">https://github.com/ivacf/archi</a></p>
 <h2 id="MV-模式中的三种元素"><a href="#MV-模式中的三种元素" class="headerlink" title="MV*模式中的三种元素"></a>MV*模式中的三种元素</h2><p>Model：负责操纵数据。</p>
 <p>View：负责将渲染数据展示给用户和响应用户界面操作。Activity和Fragment都属于View层。</p>
@@ -401,20 +403,27 @@
 </ol>
 <p>源码来自：<a href="https://github.com/ivacf/archi" target="_blank" rel="external">https://github.com/ivacf/archi</a></p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
@@ -422,21 +431,22 @@
       
 
       
+      
+      
 
       
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -444,6 +454,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -463,8 +477,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -508,6 +531,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MV-模式中的三种元素"><span class="nav-number">1.</span> <span class="nav-text">MV*模式中的三种元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#经典Android程序"><span class="nav-number">2.</span> <span class="nav-text">经典Android程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">2.1.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVC存在的问题"><span class="nav-number">3.</span> <span class="nav-text">MVC存在的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVP"><span class="nav-number">4.</span> <span class="nav-text">MVP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用情景"><span class="nav-number">4.1.</span> <span class="nav-text">使用情景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-1"><span class="nav-number">4.2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVP的缺陷"><span class="nav-number">4.3.</span> <span class="nav-text">MVP的缺陷</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM"><span class="nav-number">5.</span> <span class="nav-text">MVVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用情景-1"><span class="nav-number">5.1.</span> <span class="nav-text">使用情景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-2"><span class="nav-number">5.2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVVM的缺陷"><span class="nav-number">5.3.</span> <span class="nav-text">MVVM的缺陷</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -621,10 +660,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
