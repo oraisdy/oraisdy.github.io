@@ -254,7 +254,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/26/如何用React Native做动画/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/27/React Native动画小栗子/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="oraisdy">
@@ -273,7 +273,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/26/如何用React Native做动画/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2017/06/27/React Native动画小栗子/" itemprop="url">React Native动画小栗子</a></h1>
         
 
         <div class="post-meta">
@@ -285,8 +285,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-26T23:41:05+08:00">
-                2017-06-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-27T00:52:38+08:00">
+                2017-06-27
               </time>
             
 
@@ -322,7 +322,45 @@
       
         
           
-            <p><img src="http://ooaqxiz7b.bkt.clouddn.com/QQ20170626-233156-HD.gif" alt="image"></p>
+            <p>今天学习了React Native中的Animated库，顺便用它给app做了一个登录界面的小动画。</p>
+<p>先上效果图：</p>
+<p><img src="http://ooaqxiz7b.bkt.clouddn.com/QQ20170626-234744-HD.gif" alt="image"></p>
+<p>代码大概在一百行，<a href="https://github.com/oraisdy/react-native-icon-rotation/blob/master/Animation.js" target="_blank" rel="external">源码点这里</a>。</p>
+<p>这个动画其实是背景天空做横向运动与一张环形的icon图做旋转运动的并行执行。其实也是懒得换算位置所以直接把四个图标拼在了一张图里然后添加了一个圆形的遮罩层。😑</p>
+<p>做一个小栗子的步骤分解：</p>
+<ol>
+<li><p>使用Animated组件，如Animated.View，Animated.Image Animated.Text</p>
+</li>
+<li><p>使用Animated.Value设定一个或多个初始化值（其实就是你想要在动画中改变的属性的初始值）。</p>
+</li>
+<li><p>将动画中要改变的值绑定到动画目标的属性上。</p>
+<p> 这里介绍一个很强大的方法：interpolate()。它是这么用的：</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> interpolateRotation = <span class="keyword">this</span>.rotationValue.interpolate(&#123;</div><div class="line">  <span class="attr">inputRange</span>: [<span class="number">0</span>, <span class="number">1</span>],</div><div class="line">  <span class="attr">outputRange</span>: [<span class="string">"0deg"</span>, <span class="string">"-360deg"</span>]</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p> 而当value为0.5时，会输出-180deg。也就是说对区间进行了映射。</p>
+</li>
+<li><p>通过Animated.timing等函数设定动画参数。</p>
+</li>
+<li><p>调用start启动。</p>
+</li>
+</ol>
+<p>介绍一下用到的几个重要的动画执行控制API：</p>
+<ul>
+<li>Animated.sequence() 依次一个个的执行一系列动画</li>
+<li>Animated.delay() 根据给定的一个延迟时间延迟启动接下来的动画</li>
+<li>Animated.parallel() 并行执行两个或多个动画</li>
+<li>Animated.stagger() 接受一个延迟时间和一系列动画数组，每隔延迟时间执行下一个动画（其实是插入了delay的parallel）</li>
+</ul>
+<p>想要把动画循环播放？很简单，Animated的start方法提供了一个回调函数，将在动画结束的时候执行，所以只要这么写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">componentDidMount() &#123;</div><div class="line">  <span class="keyword">this</span>.startAnimation();</div><div class="line">&#125;</div><div class="line"></div><div class="line">startAnimation() &#123;</div><div class="line">  <span class="keyword">this</span>.rotationValue.setValue(<span class="number">0</span>);</div><div class="line">  <span class="keyword">this</span>.zoomValue.setValue(<span class="number">0</span>);</div><div class="line">  Animated.parallel([</div><div class="line">    Animated.sequence(</div><div class="line">      [<span class="number">0.25</span>, <span class="number">0.5</span>, <span class="number">0.75</span>, <span class="number">1</span>].map(<span class="function"><span class="params">v</span> =&gt;</span></div><div class="line">        Animated.timing(<span class="keyword">this</span>.rotationValue, &#123;</div><div class="line">          <span class="attr">toValue</span>: v,</div><div class="line">          <span class="attr">duration</span>: <span class="number">1300</span></div><div class="line">        &#125;)</div><div class="line">      )</div><div class="line">    ),</div><div class="line"></div><div class="line">    Animated.timing(<span class="keyword">this</span>.zoomValue, &#123;</div><div class="line">      <span class="attr">toValue</span>: <span class="number">1</span>,</div><div class="line">      <span class="attr">duration</span>: <span class="number">6000</span></div><div class="line">    &#125;)</div><div class="line">  ]).start(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.startAnimation());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>关于我的小动画就说完了。</p>
+<p>下面才是重头戏。🙊</p>
+<p>想要更深入的了解Animated：</p>
+<ul>
+<li>API： <a href="https://facebook.github.io/react-native/docs/animated.html" target="_blank" rel="external">https://facebook.github.io/react-native/docs/animated.html</a></li>
+<li>原理和性能优化：<a href="http://www.alloyteam.com/2016/01/reactnative-animated/" target="_blank" rel="external">http://www.alloyteam.com/2016/01/reactnative-animated/</a></li>
+<li>更多的动画小栗子：<a href="https://codeburst.io/react-native-nine-animation-screencast-tutorials-9d031e8bb86f" target="_blank" rel="external">https://codeburst.io/react-native-nine-animation-screencast-tutorials-9d031e8bb86f</a></li>
+</ul>
+<p>👋👋👋</p>
 
           
         
