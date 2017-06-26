@@ -254,6 +254,118 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/26/如何用React Native做动画/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="oraisdy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/26/如何用React Native做动画/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-26T23:41:05+08:00">
+                2017-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="http://ooaqxiz7b.bkt.clouddn.com/QQ20170626-233156-HD.gif" alt="image"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/12/ReactNative导航库react-native-router-flux源码分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -338,7 +450,7 @@
 </ul>
 <p>简单来说，react-native-router-flux提供了比较便捷的界面跳转管理；同时内置了navbar、navtab等常用的导航组件。我主要分析前一部分的源码实现。</p>
 <h3 id="Router-与-Scene"><a href="#Router-与-Scene" class="headerlink" title="Router 与 Scene"></a>Router 与 Scene</h3><p>从<code>Usages</code>中可以看出，RNRF中想要定义路由路径很简单，通过Router包裹其中不同的屏幕（Scene）就可以了。</p>
-<p>Router.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">handleProps(props) &#123;</div><div class="line">    ...</div><div class="line">    </div><div class="line">    let scenes = props.children;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(props.children) || props.children.props.component) &#123;</div><div class="line">        scenes = (</div><div class="line">          &lt;Scene                    // 添加一个root scene</div><div class="line">            key="__root"</div><div class="line">            hideNav</div><div class="line">            &#123;...this.props&#125;</div><div class="line">          &gt;</div><div class="line">            &#123;props.children&#125;        // props.children表示组件的所有子节点</div><div class="line">          &lt;/Scene&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">    scenesMap = Actions.create(scenes, props.wrapBy);</div><div class="line">    </div><div class="line">    <span class="keyword">const</span> &#123; children, styles, scenes, reducer, createReducer, ...parentProps &#125; = props;</div><div class="line"></div><div class="line">    scenesMap.rootProps = parentProps;</div><div class="line"></div><div class="line">    <span class="keyword">const</span> initialState = getInitialStateFromRoot(scenesMap);</div><div class="line">    <span class="keyword">const</span> reducerCreator = props.createReducer || Reducer;</div><div class="line"></div><div class="line">    <span class="keyword">const</span> routerReducer = props.reducer || (</div><div class="line">      reducerCreator(&#123;</div><div class="line">        initialState,</div><div class="line">        <span class="attr">scenes</span>: scenesMap,</div><div class="line">      &#125;));</div><div class="line"></div><div class="line">    <span class="keyword">return</span> routerReducer;   <span class="comment">//返回了一个Reducer存储各个scene</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Router.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">handleProps(props) &#123;</div><div class="line">    ...</div><div class="line">    </div><div class="line">    let scenes = props.children;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(props.children) || props.children.props.component) &#123;</div><div class="line">        scenes = (</div><div class="line">          <span class="xml"><span class="tag">&lt;<span class="name">Scene</span>                    // 添加一个<span class="attr">root</span> <span class="attr">scene</span></span></span></div><div class="line">            <span class="attr">key</span>=<span class="string">"__root"</span></div><div class="line">            <span class="attr">hideNav</span></div><div class="line">            &#123;<span class="attr">...this.props</span>&#125;</div><div class="line">          &gt;</div><div class="line">            &#123;props.children&#125;        // props.children表示组件的所有子节点</div><div class="line">          <span class="tag">&lt;/<span class="name">Scene</span>&gt;</span></div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">    scenesMap = Actions.create(scenes, props.wrapBy);</div><div class="line">    </div><div class="line">    <span class="keyword">const</span> &#123; children, styles, scenes, reducer, createReducer, ...parentProps &#125; = props;</div><div class="line"></div><div class="line">    scenesMap.rootProps = parentProps;</div><div class="line"></div><div class="line">    <span class="keyword">const</span> initialState = getInitialStateFromRoot(scenesMap);</div><div class="line">    <span class="keyword">const</span> reducerCreator = props.createReducer || Reducer;</div><div class="line"></div><div class="line">    <span class="keyword">const</span> routerReducer = props.reducer || (</div><div class="line">      reducerCreator(&#123;</div><div class="line">        initialState,</div><div class="line">        <span class="attr">scenes</span>: scenesMap,</div><div class="line">      &#125;));</div><div class="line"></div><div class="line">    <span class="keyword">return</span> routerReducer;   <span class="comment">//返回了一个Reducer存储各个scene</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>Router的任务是找出其中包裹的Scenes并对它们进行维护。这里调用了Actions中的create()方法使用递归的方式，最后返回根scene及其所有子scene的props树状结构。下面的代码做了一些初始化工作（觉得这部分代码比较乱 大概看一眼就行~）：</p>
 <p>Router.js:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">renderNavigation(navigationState, onNavigate) &#123;</div><div class="line">    <span class="keyword">if</span> (!navigationState) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">    &#125;</div><div class="line">    Actions.get = <span class="function"><span class="params">key</span> =&gt;</span> findElement(navigationState, key, ActionConst.REFRESH);</div><div class="line">    Actions.callback = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</div><div class="line">      <span class="keyword">const</span> constAction = (props.type &amp;&amp; ActionMap[props.type] ? ActionMap[props.type] : <span class="literal">null</span>);</div><div class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.props.dispatch) &#123;</div><div class="line">        <span class="keyword">if</span> (constAction) &#123;</div><div class="line">          <span class="keyword">this</span>.props.dispatch(&#123; ...props, <span class="attr">type</span>: constAction &#125;);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">          <span class="keyword">this</span>.props.dispatch(props);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> (constAction ? onNavigate(&#123; ...props, <span class="attr">type</span>: constAction &#125;) : onNavigate(props));</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> &lt;DefaultRenderer onNavigate=&#123;onNavigate&#125; navigationState=&#123;navigationState&#125; /&gt;;</div><div class="line">&#125;  </div><div class="line">render() &#123;</div><div class="line">    if (!this.state.reducer) return null;</div><div class="line"></div><div class="line">    return (</div><div class="line">      &lt;NavigationRootContainer</div><div class="line">        reducer=&#123;this.state.reducer&#125;</div><div class="line">        renderNavigation=&#123;this.renderNavigation&#125;</div><div class="line">      /&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>NavigationRootContainer.js:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">render(): ReactElement &#123;</div><div class="line">    <span class="keyword">const</span> navigation = <span class="keyword">this</span>.props.renderNavigation(</div><div class="line">      <span class="keyword">this</span>.state.navState,</div><div class="line">      <span class="keyword">this</span>.handleNavigation</div><div class="line">    );</div><div class="line">    <span class="keyword">return</span> navigation;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
@@ -346,7 +458,7 @@
 <p>最终，在Router中建立了一个NavigationRootContainer组件。其中包含了一个reducer，可以理解为负责存储和改变scenes的仓库管理员；renderNavigation则提供了onNavigate方法放在导航组件的props中，为它们操纵Actions提供了接口。</p>
 <p>例如在我的TSS项目中，借助react-devtools可以查看NavigationRootContainer的navigationState如下图，实际上navigationState和onNavigate会作为props向下传递给所有组件。</p>
 <p><img src="http://ooaqxiz7b.bkt.clouddn.com/QQ20170612-145614@2x.png?imageView/2/w/300" alt="image"></p>
-<p>DefaultRenderer.js:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> renderScene(<span class="comment">/* NavigationSceneRendererProps */</span> props) &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;DefaultRenderer</div><div class="line">        key=&#123;props.scene.navigationState.key&#125;</div><div class="line">        onNavigate=&#123;props.onNavigate&#125;</div><div class="line">        navigationState=&#123;props.scene.navigationState&#125;</div><div class="line">      /&gt;</div><div class="line">    );</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>DefaultRenderer.js:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> renderScene(<span class="comment">/* NavigationSceneRendererProps */</span> props) &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      <span class="xml"><span class="tag">&lt;<span class="name">DefaultRenderer</span></span></span></div><div class="line">        <span class="attr">key</span>=<span class="string">&#123;props.scene.navigationState.key&#125;</span></div><div class="line">        <span class="attr">onNavigate</span>=<span class="string">&#123;props.onNavigate&#125;</span></div><div class="line">        <span class="attr">navigationState</span>=<span class="string">&#123;props.scene.navigationState&#125;</span></div><div class="line">      /&gt;</div><div class="line">    );</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
 <h3 id="Actions-与-Reducer"><a href="#Actions-与-Reducer" class="headerlink" title="Actions 与 Reducer"></a>Actions 与 Reducer</h3><p>跳过一些关于导航界面显示的详细代码，我们直接看Actions —— 这个类中定义了实现界面跳转的核心方法。而关于状态(navigationState)的改变则是由Reducer类具体实现。</p>
 <p>下面挑选三个方法节选代码分析：</p>
 <ul>
@@ -640,7 +752,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
