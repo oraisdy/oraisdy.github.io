@@ -1,0 +1,697 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Jest用法Jest是个基于Node的test runner。它是运行在node环境而不是真实浏览器的。我们要使用它来编写单元测试，测试编写好的Redux代码。 安装：1npm install --save-dev jest 常用的一些函数介绍：  describe(name, fn) 用来定义一组测试用例套件。套件不是必要的，可以用来给测试用例分组。 test(name, fn) 用来运行一个测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux项目测试从入门到出门（JEST）">
+<meta property="og:url" content="http://yoursite.com/2017/07/30/Redux项目测试从入门到出门（JEST）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Jest用法Jest是个基于Node的test runner。它是运行在node环境而不是真实浏览器的。我们要使用它来编写单元测试，测试编写好的Redux代码。 安装：1npm install --save-dev jest 常用的一些函数介绍：  describe(name, fn) 用来定义一组测试用例套件。套件不是必要的，可以用来给测试用例分组。 test(name, fn) 用来运行一个测">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/QQ20170730-154649@2x.png">
+<meta property="og:updated_time" content="2017-07-30T07:59:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redux项目测试从入门到出门（JEST）">
+<meta name="twitter:description" content="Jest用法Jest是个基于Node的test runner。它是运行在node环境而不是真实浏览器的。我们要使用它来编写单元测试，测试编写好的Redux代码。 安装：1npm install --save-dev jest 常用的一些函数介绍：  describe(name, fn) 用来定义一组测试用例套件。套件不是必要的，可以用来给测试用例分组。 test(name, fn) 用来运行一个测">
+<meta name="twitter:image" content="http://ooaqxiz7b.bkt.clouddn.com/QQ20170730-154649@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/30/Redux项目测试从入门到出门（JEST）/"/>
+
+
+
+
+
+  <title>Redux项目测试从入门到出门（JEST） | Hexo</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/30/Redux项目测试从入门到出门（JEST）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="oraisdy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redux项目测试从入门到出门（JEST）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-30T15:59:28+08:00">
+                2017-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Jest用法"><a href="#Jest用法" class="headerlink" title="Jest用法"></a>Jest用法</h3><p>Jest是个基于Node的test runner。它是运行在node环境而不是真实浏览器的。我们要使用它来编写单元测试，测试编写好的Redux代码。</p>
+<p>安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev jest</div></pre></td></tr></table></figure></p>
+<p>常用的一些函数介绍：</p>
+<ul>
+<li><code>describe(name, fn)</code> 用来定义一组测试用例套件。套件不是必要的，可以用来给测试用例分组。</li>
+<li><code>test(name, fn)</code> 用来运行一个测试用例，也可以写作it(name, fn)</li>
+<li><code>expect</code> 用来检查测试值和预期值是否匹配。常用的格式是expect(value).[matchers]，比如expect(received).toBe(expected)</li>
+</ul>
+<h3 id="编写测试前的一些准备"><a href="#编写测试前的一些准备" class="headerlink" title="编写测试前的一些准备"></a>编写测试前的一些准备</h3><p>通过编辑setupTests文件（create-react-app中预置了这个文件，如果没有用create-react-app也可以自己配置），可以在里面编写一些测试中共用的初始化工作。</p>
+<p>比如很多人在项目中需要操作的localStorage，在Jest环境中是不存在的，那么我们可以mock一个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var localStorageMock = (function() &#123;</div><div class="line">  var store = &#123;&#125;;</div><div class="line">  return &#123;</div><div class="line">    getItem: function(key) &#123;</div><div class="line">      return store[key];</div><div class="line">    &#125;,</div><div class="line">    setItem: function(key, value) &#123;</div><div class="line">      store[key] = value.toString();</div><div class="line">    &#125;,</div><div class="line">    clear: function() &#123;</div><div class="line">      store = &#123;&#125;;</div><div class="line">    &#125;,</div><div class="line">    removeItem: function(key) &#123;</div><div class="line">      delete store[key];</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;)();</div><div class="line">Object.defineProperty(window, &apos;localStorage&apos;, &#123; value: localStorageMock &#125;);</div></pre></td></tr></table></figure></p>
+<p>这里有一个问题。之前提到jest是基于node的，那么为什么刚刚我们可以直接在setupTest中更改window变量呢？</p>
+<p>这就要提到一个库：<code>jsdom</code>。这个包是用来在Node中模拟web浏览器的。Jest使用了这个包，所以我们也可以在Jest中用像window这样的浏览器全局变量啦。</p>
+<h3 id="测试reducers"><a href="#测试reducers" class="headerlink" title="测试reducers"></a>测试reducers</h3><p>reducers都是纯函数：<code>(previousState, action) =&gt; newState</code>。所以对它的测试只需要设定旧状态和输入的Action，观测产生的状态是否符合预期就行了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; ADD_TODO &#125; <span class="keyword">from</span> <span class="string">'../constants/ActionTypes'</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> initialState = [</div><div class="line">  &#123;</div><div class="line">    <span class="attr">text</span>: <span class="string">'Use Redux'</span>,</div><div class="line">    <span class="attr">completed</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">id</span>: <span class="number">0</span></div><div class="line">  &#125;</div><div class="line">]</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">todos</span>(<span class="params">state = initialState, action</span>) </span>&#123;</div><div class="line">  <span class="keyword">switch</span> (action.type) &#123;</div><div class="line">    <span class="keyword">case</span> ADD_TODO:</div><div class="line">      <span class="keyword">return</span> [</div><div class="line">        &#123;</div><div class="line">          <span class="attr">id</span>: state.reduce(<span class="function">(<span class="params">maxId, todo</span>) =&gt;</span> <span class="built_in">Math</span>.max(todo.id, maxId), <span class="number">-1</span>) + <span class="number">1</span>,</div><div class="line">          <span class="attr">completed</span>: <span class="literal">false</span>,</div><div class="line">          <span class="attr">text</span>: action.text</div><div class="line">        &#125;,</div><div class="line">        ...state</div><div class="line">      ]</div><div class="line"></div><div class="line">    <span class="keyword">default</span>:</div><div class="line">      <span class="keyword">return</span> state</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="测试actions"><a href="#测试actions" class="headerlink" title="测试actions"></a>测试actions</h3><p>即测试action能否被正确的产生。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">it(<span class="string">'should create an action to add a todo'</span>, () =&gt; &#123;</div><div class="line">    <span class="keyword">const</span> text = <span class="string">'Finish docs'</span></div><div class="line">    <span class="keyword">const</span> expectedAction = &#123;</div><div class="line">      <span class="attr">type</span>: types.ADD_TODO,</div><div class="line">      text</div><div class="line">    &#125;</div><div class="line">    expect(actions.addTodo(text)).toEqual(expectedAction)</div><div class="line">  &#125;)</div></pre></td></tr></table></figure></p>
+<h4 id="mock"><a href="#mock" class="headerlink" title="mock"></a>mock</h4><p>从Action部分开始，我们需要引入一个在测试中很常用的概念，mock。为了关注一个测试中最关键的部分，我们可以把其他无关的东西用mock的方式替代掉。比如我们既然关注的是调用Action函数后产生的结果是否正确，那么关于store中注入Action的方式还有产生Action过程中调用的网络请求都可以mock。</p>
+<p>所以引入一个用来模拟redux store的库：<code>redux-mock-store</code>。之后关于store的行为都调用它而不是项目中真正的store。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> configureMockStore <span class="keyword">from</span> <span class="string">'redux-mock-store'</span></div><div class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> middlewares = [thunk]     <span class="comment">//redux-thunk是一个redux中间件，用来处理异步，提供了dispatch和getState接口</span></div><div class="line"><span class="keyword">const</span> mockStore = configureMockStore(middlewares)</div></pre></td></tr></table></figure>
+<h4 id="异步Action"><a href="#异步Action" class="headerlink" title="异步Action"></a>异步Action</h4><p>在实际项目中常常需要异步地生成Action，比如向后端服务器发送请求获取数据。mock数据请求而不是真实地向后端发送请求,这样可以方便隔离掉api本身可能有的问题测试出action调用中是否存在问题，也避免污染线上资源。</p>
+<p>Redux官方文档中的example使用了第三方库<code>nock</code>来接管http请求。而我自己项目中用了<code>axios</code>来发送请求，实测并不能nock，所以用了<code>axios-mock-adapter</code>，不过原理和做法是相似的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> configureMockStore <span class="keyword">from</span> <span class="string">'redux-mock-store'</span></div><div class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span></div><div class="line"><span class="keyword">import</span> * <span class="keyword">as</span> actions <span class="keyword">from</span> <span class="string">'../../actions/TodoActions'</span></div><div class="line"><span class="keyword">import</span> * <span class="keyword">as</span> types <span class="keyword">from</span> <span class="string">'../../constants/ActionTypes'</span></div><div class="line"><span class="keyword">import</span> nock <span class="keyword">from</span> <span class="string">'nock'</span></div><div class="line"><span class="keyword">import</span> expect <span class="keyword">from</span> <span class="string">'expect'</span> <span class="comment">// You can use any testing library</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> middlewares = [thunk]</div><div class="line"><span class="keyword">const</span> mockStore = configureMockStore(middlewares)</div><div class="line"></div><div class="line">describe(<span class="string">'async actions'</span>, () =&gt; &#123;</div><div class="line">  afterEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    nock.cleanAll()</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  it(<span class="string">'creates FETCH_TODOS_SUCCESS when fetching todos has been done'</span>, () =&gt; &#123;</div><div class="line">    nock(<span class="string">'http://example.com/'</span>)</div><div class="line">      .get(<span class="string">'/todos'</span>)</div><div class="line">      .reply(<span class="number">200</span>, &#123; <span class="attr">body</span>: &#123; <span class="attr">todos</span>: [<span class="string">'do something'</span>] &#125; &#125;)</div><div class="line"></div><div class="line">    <span class="keyword">const</span> expectedActions = [</div><div class="line">      &#123; <span class="attr">type</span>: types.FETCH_TODOS_REQUEST &#125;,</div><div class="line">      &#123; <span class="attr">type</span>: types.FETCH_TODOS_SUCCESS, <span class="attr">body</span>: &#123; <span class="attr">todos</span>: [<span class="string">'do something'</span>] &#125; &#125;</div><div class="line">    ]</div><div class="line">    <span class="keyword">const</span> store = mockStore(&#123; <span class="attr">todos</span>: [] &#125;)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> store.dispatch(actions.fetchTodos()).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">      <span class="comment">// return of async actions</span></div><div class="line">      expect(store.getActions()).toEqual(expectedActions)</div><div class="line">    &#125;)</div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h3><h4 id="it-name-fn-函数中的异步调用"><a href="#it-name-fn-函数中的异步调用" class="headerlink" title="it(name,fn)函数中的异步调用"></a><code>it(name,fn)</code>函数中的异步调用</h4><p>在it的测试函数fn中，有时会调用异步方法。如果没有返回值的话fn会不等待异步方法执行完毕直接返回。所以需要把调用的异步方法作为fn的返回值，或者为fn添加一个参数done，在异步调用结束后调用done()。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//this block signature will trigger async behavior.</span></div><div class="line">it(<span class="string">"should work"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">done</span>)</span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//this block signature will run synchronously</span></div><div class="line">it(<span class="string">"should work"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">it(<span class="string">'template advance'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">doneFn</span>) </span>&#123;</div><div class="line">        $.ajax(&#123;</div><div class="line">            <span class="attr">url</span>: <span class="string">'public/gustavo-salgado.mock.json'</span>,</div><div class="line">            <span class="attr">dataType</span>: <span class="string">'json'</span>,</div><div class="line">            <span class="attr">success</span>: <span class="function"><span class="keyword">function</span> (<span class="params">data, response</span>) </span>&#123;</div><div class="line">                <span class="comment">// Here your expected using data</span></div><div class="line">                expect(<span class="number">1</span>).toBe(<span class="number">1</span>)</div><div class="line">                doneFn();</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">error</span>: <span class="function"><span class="keyword">function</span> (<span class="params">data, response</span>) </span>&#123;</div><div class="line">                <span class="comment">// Here your expected using data</span></div><div class="line">                expect(<span class="number">1</span>).toBe(<span class="number">1</span>)</div><div class="line">                doneFn();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div></pre></td></tr></table></figure>
+<p>参考：<a href="https://stackoverflow.com/questions/22604644/jasmine-async-callback-was-not-invoked-within-timeout-specified-by-jasmine-defa" target="_blank" rel="external">stackoverflow问题</a></p>
+<h3 id="测试覆盖率"><a href="#测试覆盖率" class="headerlink" title="测试覆盖率"></a>测试覆盖率</h3><p>使用<code>--coverage</code>参数可以跑一遍所有测试用例并显示覆盖率。<br><img src="http://ooaqxiz7b.bkt.clouddn.com/QQ20170730-154649@2x.png" alt="image"><br>可以看到还是有很多语句和分支没有覆盖到的，最后一列可以提示没有覆盖到的代码行数。</p>
+<p>这个星期研究了几天React/Redux测试，终于大致了解了需要测试的东西和测试思路。React组件部分选用了JEST+Enzyme的方式测试，不过还是存在很多疑惑。 最后只想说一句，TDD大法好，一口气写这么多测试用例太作死了😭</p>
+<hr>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#testing-components" target="_blank" rel="external">create-react-app官方手册</a></li>
+<li><a href="http://redux.js.org/docs/recipes/WritingTests.html" target="_blank" rel="external">Redux官方文档</a></li>
+<li><a href="http://facebook.github.io/jest/docs/en/getting-started.html#content" target="_blank" rel="external">Jest官方文档</a></li>
+<li><a href="http://arnaudbenard.com/redux-mock-store/" target="_blank" rel="external">Redux-mock-store</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/27/React Native动画小栗子/" rel="next" title="React Native动画小栗子">
+                <i class="fa fa-chevron-left"></i> React Native动画小栗子
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="oraisdy" />
+          <p class="site-author-name" itemprop="name">oraisdy</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Jest用法"><span class="nav-number">1.</span> <span class="nav-text">Jest用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写测试前的一些准备"><span class="nav-number">2.</span> <span class="nav-text">编写测试前的一些准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试reducers"><span class="nav-number">3.</span> <span class="nav-text">测试reducers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试actions"><span class="nav-number">4.</span> <span class="nav-text">测试actions</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mock"><span class="nav-number">4.1.</span> <span class="nav-text">mock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异步Action"><span class="nav-number">4.2.</span> <span class="nav-text">异步Action</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到的坑"><span class="nav-number">5.</span> <span class="nav-text">遇到的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#it-name-fn-函数中的异步调用"><span class="nav-number">5.1.</span> <span class="nav-text">it(name,fn)函数中的异步调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试覆盖率"><span class="nav-number">6.</span> <span class="nav-text">测试覆盖率</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oraisdy</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
