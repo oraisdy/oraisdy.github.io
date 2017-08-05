@@ -254,6 +254,155 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/05/require和import/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="oraisdy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/05/require和import/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-05T15:50:47+08:00">
+                2017-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<h2 id="title-天天都在用的require和import我为什么还是错"><a href="#title-天天都在用的require和import我为什么还是错" class="headerlink" title="title:天天都在用的require和import我为什么还是错"></a>title:天天都在用的require和import我为什么还是错</h2><p>天天都在用require和import但有时还是会犯错。所以整理一下争取从原理上理解╮(╯_╰)╭</p>
+<h3 id="Node中的require"><a href="#Node中的require" class="headerlink" title="Node中的require"></a>Node中的require</h3><h4 id="CommonJS模块规范"><a href="#CommonJS模块规范" class="headerlink" title="CommonJS模块规范"></a>CommonJS模块规范</h4><p>require 来自 CommonJS 的模块规范。而 Node 也借鉴了 CommonJS 的 Modules 规范，使用<code>require</code>导入模块，用<code>exports</code>导出模块。</p>
+<p>简单的例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// module1.js</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">a</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</div><div class="line">  <span class="attr">b</span> : <span class="string">'xxx'</span></div><div class="line">&#125;;</div><div class="line"><span class="comment">// ----------------</span></div><div class="line"><span class="comment">// module2.js</span></div><div class="line"><span class="keyword">var</span> m = <span class="built_in">require</span>(<span class="string">'./a'</span>);</div><div class="line">m.a();</div></pre></td></tr></table></figure></p>
+<h4 id="exports与module-exports"><a href="#exports与module-exports" class="headerlink" title="exports与module.exports"></a>exports与module.exports</h4><p>虽然这种直接在<code>exports</code>上复制来导出模块的方式很简单，但在 Node 中比较容易让人误解的就是为什么同时存在<code>exports</code>与<code>module.exports</code>了。</p>
+<p>在 Node 中，每个文件被当做一个模块。事实上，Node 在编译时对JS文件内容进行了首尾包装：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">exports, require, module, __filename, __dirname</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>);</div><div class="line">    exports.area = <span class="function"><span class="keyword">function</span> (<span class="params">radius</span>) </span>&#123;</div><div class="line">       <span class="keyword">return</span> <span class="built_in">Math</span>.PI * radius * radius; </div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>一个JS文件被进行了如上包装。这样做有几个作用：首先使每个模块文件之间作用域隔离；并且将当前模块对象的module对象(模块对象本身)、require()方法、exports属性等传递给了这个function()交由原生模块执行；最后，在模块文件内部，require、exports这些变量也可以使用了。</p>
+<p>执行后，exports属性被传递给了调用方，上面的方法和属性可以被外部调用。</p>
+<p>其实<code>module</code>才是真实的module对象本身， <code>module.exports</code>就是在改变它本身的属性。而<code>exports</code>虽然也可以导出，但它本质上是通过形参实现的。而了解编程中函数原理的人都知道，在作用域内直接赋值形参只改变了函数作用域内参数的引用，是没办法对作用域外真实的值起作用的。</p>
+<p>了解到了这一点，模块中一些让人摸不着头脑的特性也不难理解了。下面举几个例子：</p>
+<ol>
+<li><p>当module.exports被覆盖后再使用export是无效的。</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="string">'LOL'</span>;</div><div class="line"><span class="built_in">module</span>.exports.age = <span class="number">68</span>; <span class="comment">//undefined</span></div><div class="line">exports.name = <span class="string">'Lemmy Kilmister'</span>; <span class="comment">//undefined</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>如果要达到require引入特定的对象（比如一个人类）的效果，应该直接赋值给module.exports对象。</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.age = age;</div><div class="line">    <span class="keyword">this</span>.about = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name +<span class="string">' is '</span>+ <span class="keyword">this</span>.age +<span class="string">' years old'</span>);</div><div class="line">    &#125;;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// another file to use it</span></div><div class="line"><span class="keyword">var</span> Rocker = <span class="built_in">require</span>(<span class="string">'./rocker.js'</span>);</div><div class="line"><span class="keyword">var</span> r = <span class="keyword">new</span> Rocker(<span class="string">'Ozzy'</span>, <span class="number">62</span>);</div><div class="line">r.about(); <span class="comment">// Ozzy is 62 years old</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>因此，正确的使用姿势应该是：尽量使用exports，只在特定的场合使用module.exports。</p>
+<h3 id="ES6-的-import"><a href="#ES6-的-import" class="headerlink" title="ES6 的 import"></a>ES6 的 import</h3><p><code>import</code>和<code>export</code>是来自ES6的标准。export的用法很多，直接搬运mdn里的语法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> &#123; name1, name2, …, nameN &#125;;</div><div class="line"><span class="keyword">export</span> &#123; variable1 <span class="keyword">as</span> name1, variable2 <span class="keyword">as</span> name2, …, nameN &#125;;</div><div class="line"><span class="keyword">export</span> <span class="keyword">let</span> name1, name2, …, nameN; <span class="comment">// also var, function</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">let</span> name1 = …, name2 = …, …, nameN; <span class="comment">// also var, const</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> expression;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> (<span class="params">…</span>) </span>&#123; … &#125; <span class="comment">// also class, function*</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">name1</span>(<span class="params">…</span>) </span>&#123; … &#125; <span class="comment">// also class, function*</span></div><div class="line"><span class="keyword">export</span> &#123; name1 <span class="keyword">as</span> <span class="keyword">default</span>, … &#125;;</div><div class="line"></div><div class="line"><span class="keyword">export</span> * <span class="keyword">from</span> …;</div><div class="line"><span class="keyword">export</span> &#123; name1, name2, …, nameN &#125; <span class="keyword">from</span> …;</div><div class="line"><span class="keyword">export</span> &#123; import1 <span class="keyword">as</span> name1, import2 <span class="keyword">as</span> name2, …, nameN &#125; <span class="keyword">from</span> …;</div></pre></td></tr></table></figure></p>
+<p>简单说说需要注意的几点是：</p>
+<ol>
+<li><p>不可以直接导出一个值</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="number">1</span>; <span class="comment">// 错误</span></div><div class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</div><div class="line"><span class="keyword">export</span> a;</div></pre></td></tr></table></figure>
+</li>
+<li><p>import是一个解构的过程，要导入export的值要使用花括号{}。如果要省去{}可以使用default这个语法糖</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//module1.js</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line"><span class="comment">// 等效于：</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;&#125;;</div><div class="line"><span class="keyword">export</span> &#123;a <span class="keyword">as</span> <span class="keyword">default</span>&#125;;</div><div class="line"><span class="comment">//---------</span></div><div class="line"><span class="comment">//module2.js</span></div><div class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'./module1.js'</span>;</div><div class="line"><span class="comment">// 等效于：</span></div><div class="line"><span class="keyword">import</span> &#123;<span class="keyword">default</span> <span class="keyword">as</span> a&#125; <span class="keyword">from</span> <span class="string">'./module1.js'</span>;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>查资料的时候看到据说 import 性能上要比 require 优越，没有仔细理解，先整理到这里吧。</p>
+<hr>
+<p>参考资料：</p>
+<ol>
+<li>《深入浅出NodeJS》—朴灵</li>
+<li><a href="http://imweb.io/topic/582293894067ce9726778be9" target="_blank" rel="external">Node中没搞明白require和import，你会被坑的很惨</a></li>
+<li><a href="http://www.hacksparrow.com/node-js-exports-vs-module-exports.html" target="_blank" rel="external">Node.js Module – exports vs module.exports</a></li>
+<li><a href="https://developer.mozilla.org/en/docs/web/javascript/reference/statements/export" target="_blank" rel="external">export - Web technology for developers | MDN</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/30/Redux项目测试从入门到出门（JEST）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -935,7 +1084,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
