@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,6 +10,7 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
 
 
 
@@ -74,7 +75,7 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="Hexo, NexT" />
@@ -86,7 +87,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
 
 
 
@@ -94,11 +95,12 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="Dora&#39;s blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Dora&#39;s blog">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Dora&#39;s blog">
 
 
 
@@ -107,8 +109,9 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
+    tabs: true,
     motion: true,
     duoshuo: {
       userId: '0',
@@ -132,11 +135,7 @@
 
 
 
-  <title>Hexo</title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>Dora's blog</title>
   
 
 
@@ -152,6 +151,9 @@
 
 
 
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -171,7 +173,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">Dora's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -207,7 +209,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -217,7 +219,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -253,17 +255,21 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/05/require和import/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="oraisdy">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Dora's blog">
     </span>
 
     
@@ -273,7 +279,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/05/require和import/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2017/08/05/require和import/" itemprop="url">天天都在用的require和import我为什么还是错</a></h1>
         
 
         <div class="post-meta">
@@ -314,6 +320,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -322,61 +331,28 @@
       
         
           
-            <hr>
-<h2 id="title-天天都在用的require和import我为什么还是错"><a href="#title-天天都在用的require和import我为什么还是错" class="headerlink" title="title:天天都在用的require和import我为什么还是错"></a>title:天天都在用的require和import我为什么还是错</h2><p>天天都在用require和import但有时还是会犯错。所以整理一下争取从原理上理解╮(╯_╰)╭</p>
-<h3 id="Node中的require"><a href="#Node中的require" class="headerlink" title="Node中的require"></a>Node中的require</h3><h4 id="CommonJS模块规范"><a href="#CommonJS模块规范" class="headerlink" title="CommonJS模块规范"></a>CommonJS模块规范</h4><p>require 来自 CommonJS 的模块规范。而 Node 也借鉴了 CommonJS 的 Modules 规范，使用<code>require</code>导入模块，用<code>exports</code>导出模块。</p>
-<p>简单的例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// module1.js</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">a</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</div><div class="line">  <span class="attr">b</span> : <span class="string">'xxx'</span></div><div class="line">&#125;;</div><div class="line"><span class="comment">// ----------------</span></div><div class="line"><span class="comment">// module2.js</span></div><div class="line"><span class="keyword">var</span> m = <span class="built_in">require</span>(<span class="string">'./a'</span>);</div><div class="line">m.a();</div></pre></td></tr></table></figure></p>
-<h4 id="exports与module-exports"><a href="#exports与module-exports" class="headerlink" title="exports与module.exports"></a>exports与module.exports</h4><p>虽然这种直接在<code>exports</code>上复制来导出模块的方式很简单，但在 Node 中比较容易让人误解的就是为什么同时存在<code>exports</code>与<code>module.exports</code>了。</p>
-<p>在 Node 中，每个文件被当做一个模块。事实上，Node 在编译时对JS文件内容进行了首尾包装：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">exports, require, module, __filename, __dirname</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>);</div><div class="line">    exports.area = <span class="function"><span class="keyword">function</span> (<span class="params">radius</span>) </span>&#123;</div><div class="line">       <span class="keyword">return</span> <span class="built_in">Math</span>.PI * radius * radius; </div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>一个JS文件被进行了如上包装。这样做有几个作用：首先使每个模块文件之间作用域隔离；并且将当前模块对象的module对象(模块对象本身)、require()方法、exports属性等传递给了这个function()交由原生模块执行；最后，在模块文件内部，require、exports这些变量也可以使用了。</p>
-<p>执行后，exports属性被传递给了调用方，上面的方法和属性可以被外部调用。</p>
-<p>其实<code>module</code>才是真实的module对象本身， <code>module.exports</code>就是在改变它本身的属性。而<code>exports</code>虽然也可以导出，但它本质上是通过形参实现的。而了解编程中函数原理的人都知道，在作用域内直接赋值形参只改变了函数作用域内参数的引用，是没办法对作用域外真实的值起作用的。</p>
-<p>了解到了这一点，模块中一些让人摸不着头脑的特性也不难理解了。下面举几个例子：</p>
-<ol>
-<li><p>当module.exports被覆盖后再使用export是无效的。</p>
- <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="string">'LOL'</span>;</div><div class="line"><span class="built_in">module</span>.exports.age = <span class="number">68</span>; <span class="comment">//undefined</span></div><div class="line">exports.name = <span class="string">'Lemmy Kilmister'</span>; <span class="comment">//undefined</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>如果要达到require引入特定的对象（比如一个人类）的效果，应该直接赋值给module.exports对象。</p>
- <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.age = age;</div><div class="line">    <span class="keyword">this</span>.about = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name +<span class="string">' is '</span>+ <span class="keyword">this</span>.age +<span class="string">' years old'</span>);</div><div class="line">    &#125;;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// another file to use it</span></div><div class="line"><span class="keyword">var</span> Rocker = <span class="built_in">require</span>(<span class="string">'./rocker.js'</span>);</div><div class="line"><span class="keyword">var</span> r = <span class="keyword">new</span> Rocker(<span class="string">'Ozzy'</span>, <span class="number">62</span>);</div><div class="line">r.about(); <span class="comment">// Ozzy is 62 years old</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>因此，正确的使用姿势应该是：尽量使用exports，只在特定的场合使用module.exports。</p>
-<h3 id="ES6-的-import"><a href="#ES6-的-import" class="headerlink" title="ES6 的 import"></a>ES6 的 import</h3><p><code>import</code>和<code>export</code>是来自ES6的标准。export的用法很多，直接搬运mdn里的语法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> &#123; name1, name2, …, nameN &#125;;</div><div class="line"><span class="keyword">export</span> &#123; variable1 <span class="keyword">as</span> name1, variable2 <span class="keyword">as</span> name2, …, nameN &#125;;</div><div class="line"><span class="keyword">export</span> <span class="keyword">let</span> name1, name2, …, nameN; <span class="comment">// also var, function</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">let</span> name1 = …, name2 = …, …, nameN; <span class="comment">// also var, const</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> expression;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> (<span class="params">…</span>) </span>&#123; … &#125; <span class="comment">// also class, function*</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">name1</span>(<span class="params">…</span>) </span>&#123; … &#125; <span class="comment">// also class, function*</span></div><div class="line"><span class="keyword">export</span> &#123; name1 <span class="keyword">as</span> <span class="keyword">default</span>, … &#125;;</div><div class="line"></div><div class="line"><span class="keyword">export</span> * <span class="keyword">from</span> …;</div><div class="line"><span class="keyword">export</span> &#123; name1, name2, …, nameN &#125; <span class="keyword">from</span> …;</div><div class="line"><span class="keyword">export</span> &#123; import1 <span class="keyword">as</span> name1, import2 <span class="keyword">as</span> name2, …, nameN &#125; <span class="keyword">from</span> …;</div></pre></td></tr></table></figure></p>
-<p>简单说说需要注意的几点是：</p>
-<ol>
-<li><p>不可以直接导出一个值</p>
- <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="number">1</span>; <span class="comment">// 错误</span></div><div class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</div><div class="line"><span class="keyword">export</span> a;</div></pre></td></tr></table></figure>
-</li>
-<li><p>import是一个解构的过程，要导入export的值要使用花括号{}。如果要省去{}可以使用default这个语法糖</p>
- <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//module1.js</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line"><span class="comment">// 等效于：</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;&#125;;</div><div class="line"><span class="keyword">export</span> &#123;a <span class="keyword">as</span> <span class="keyword">default</span>&#125;;</div><div class="line"><span class="comment">//---------</span></div><div class="line"><span class="comment">//module2.js</span></div><div class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'./module1.js'</span>;</div><div class="line"><span class="comment">// 等效于：</span></div><div class="line"><span class="keyword">import</span> &#123;<span class="keyword">default</span> <span class="keyword">as</span> a&#125; <span class="keyword">from</span> <span class="string">'./module1.js'</span>;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>查资料的时候看到据说 import 性能上要比 require 优越，没有仔细理解，先整理到这里吧。</p>
-<hr>
-<p>参考资料：</p>
-<ol>
-<li>《深入浅出NodeJS》—朴灵</li>
-<li><a href="http://imweb.io/topic/582293894067ce9726778be9" target="_blank" rel="external">Node中没搞明白require和import，你会被坑的很惨</a></li>
-<li><a href="http://www.hacksparrow.com/node-js-exports-vs-module-exports.html" target="_blank" rel="external">Node.js Module – exports vs module.exports</a></li>
-<li><a href="https://developer.mozilla.org/en/docs/web/javascript/reference/statements/export" target="_blank" rel="external">export - Web technology for developers | MDN</a></li>
-</ol>
-
-          
+          天天都在用require和import但有时还是会犯错。所以整理一下争取从原理上理解╮(╯_╰)╭
+Node中的requireCommonJS模块规范require 来自 CommonJS 的模块规范。而 Node 也借鉴了 CommonJS 的 Modules 规范，使用require导入模块，用
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/05/require和import/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -390,6 +366,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -402,17 +382,21 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/30/Redux项目测试从入门到出门（JEST）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="oraisdy">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Dora's blog">
     </span>
 
     
@@ -463,6 +447,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -471,57 +458,31 @@
       
         
           
-            <h3 id="Jest用法"><a href="#Jest用法" class="headerlink" title="Jest用法"></a>Jest用法</h3><p>Jest是个基于Node的test runner。它是运行在node环境而不是真实浏览器的。我们要使用它来编写单元测试，测试编写好的Redux代码。</p>
-<p>安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev jest</div></pre></td></tr></table></figure></p>
-<p>常用的一些函数介绍：</p>
-<ul>
-<li><code>describe(name, fn)</code> 用来定义一组测试用例套件。套件不是必要的，可以用来给测试用例分组。</li>
-<li><code>test(name, fn)</code> 用来运行一个测试用例，也可以写作it(name, fn)</li>
-<li><code>expect</code> 用来检查测试值和预期值是否匹配。常用的格式是expect(value).[matchers]，比如expect(received).toBe(expected)</li>
-</ul>
-<h3 id="编写测试前的一些准备"><a href="#编写测试前的一些准备" class="headerlink" title="编写测试前的一些准备"></a>编写测试前的一些准备</h3><p>通过编辑setupTests文件（create-react-app中预置了这个文件，如果没有用create-react-app也可以自己配置），可以在里面编写一些测试中共用的初始化工作。</p>
-<p>比如很多人在项目中需要操作的localStorage，在Jest环境中是不存在的，那么我们可以mock一个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var localStorageMock = (function() &#123;</div><div class="line">  var store = &#123;&#125;;</div><div class="line">  return &#123;</div><div class="line">    getItem: function(key) &#123;</div><div class="line">      return store[key];</div><div class="line">    &#125;,</div><div class="line">    setItem: function(key, value) &#123;</div><div class="line">      store[key] = value.toString();</div><div class="line">    &#125;,</div><div class="line">    clear: function() &#123;</div><div class="line">      store = &#123;&#125;;</div><div class="line">    &#125;,</div><div class="line">    removeItem: function(key) &#123;</div><div class="line">      delete store[key];</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;)();</div><div class="line">Object.defineProperty(window, &apos;localStorage&apos;, &#123; value: localStorageMock &#125;);</div></pre></td></tr></table></figure></p>
-<p>这里有一个问题。之前提到jest是基于node的，那么为什么刚刚我们可以直接在setupTest中更改window变量呢？</p>
-<p>这就要提到一个库：<code>jsdom</code>。这个包是用来在Node中模拟web浏览器的。Jest使用了这个包，所以我们也可以在Jest中用像window这样的浏览器全局变量啦。</p>
-<h3 id="测试reducers"><a href="#测试reducers" class="headerlink" title="测试reducers"></a>测试reducers</h3><p>reducers都是纯函数：<code>(previousState, action) =&gt; newState</code>。所以对它的测试只需要设定旧状态和输入的Action，观测产生的状态是否符合预期就行了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; ADD_TODO &#125; <span class="keyword">from</span> <span class="string">'../constants/ActionTypes'</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> initialState = [</div><div class="line">  &#123;</div><div class="line">    <span class="attr">text</span>: <span class="string">'Use Redux'</span>,</div><div class="line">    <span class="attr">completed</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">id</span>: <span class="number">0</span></div><div class="line">  &#125;</div><div class="line">]</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">todos</span>(<span class="params">state = initialState, action</span>) </span>&#123;</div><div class="line">  <span class="keyword">switch</span> (action.type) &#123;</div><div class="line">    <span class="keyword">case</span> ADD_TODO:</div><div class="line">      <span class="keyword">return</span> [</div><div class="line">        &#123;</div><div class="line">          <span class="attr">id</span>: state.reduce(<span class="function">(<span class="params">maxId, todo</span>) =&gt;</span> <span class="built_in">Math</span>.max(todo.id, maxId), <span class="number">-1</span>) + <span class="number">1</span>,</div><div class="line">          <span class="attr">completed</span>: <span class="literal">false</span>,</div><div class="line">          <span class="attr">text</span>: action.text</div><div class="line">        &#125;,</div><div class="line">        ...state</div><div class="line">      ]</div><div class="line"></div><div class="line">    <span class="keyword">default</span>:</div><div class="line">      <span class="keyword">return</span> state</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="测试actions"><a href="#测试actions" class="headerlink" title="测试actions"></a>测试actions</h3><p>即测试action能否被正确的产生。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">it(<span class="string">'should create an action to add a todo'</span>, () =&gt; &#123;</div><div class="line">    <span class="keyword">const</span> text = <span class="string">'Finish docs'</span></div><div class="line">    <span class="keyword">const</span> expectedAction = &#123;</div><div class="line">      <span class="attr">type</span>: types.ADD_TODO,</div><div class="line">      text</div><div class="line">    &#125;</div><div class="line">    expect(actions.addTodo(text)).toEqual(expectedAction)</div><div class="line">  &#125;)</div></pre></td></tr></table></figure></p>
-<h4 id="mock"><a href="#mock" class="headerlink" title="mock"></a>mock</h4><p>从Action部分开始，我们需要引入一个在测试中很常用的概念，mock。为了关注一个测试中最关键的部分，我们可以把其他无关的东西用mock的方式替代掉。比如我们既然关注的是调用Action函数后产生的结果是否正确，那么关于store中注入Action的方式还有产生Action过程中调用的网络请求都可以mock。</p>
-<p>所以引入一个用来模拟redux store的库：<code>redux-mock-store</code>。之后关于store的行为都调用它而不是项目中真正的store。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> configureMockStore <span class="keyword">from</span> <span class="string">'redux-mock-store'</span></div><div class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> middlewares = [thunk]     <span class="comment">//redux-thunk是一个redux中间件，用来处理异步，提供了dispatch和getState接口</span></div><div class="line"><span class="keyword">const</span> mockStore = configureMockStore(middlewares)</div></pre></td></tr></table></figure>
-<h4 id="异步Action"><a href="#异步Action" class="headerlink" title="异步Action"></a>异步Action</h4><p>在实际项目中常常需要异步地生成Action，比如向后端服务器发送请求获取数据。mock数据请求而不是真实地向后端发送请求,这样可以方便隔离掉api本身可能有的问题测试出action调用中是否存在问题，也避免污染线上资源。</p>
-<p>Redux官方文档中的example使用了第三方库<code>nock</code>来接管http请求。而我自己项目中用了<code>axios</code>来发送请求，实测并不能nock，所以用了<code>axios-mock-adapter</code>，不过原理和做法是相似的。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> configureMockStore <span class="keyword">from</span> <span class="string">'redux-mock-store'</span></div><div class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span></div><div class="line"><span class="keyword">import</span> * <span class="keyword">as</span> actions <span class="keyword">from</span> <span class="string">'../../actions/TodoActions'</span></div><div class="line"><span class="keyword">import</span> * <span class="keyword">as</span> types <span class="keyword">from</span> <span class="string">'../../constants/ActionTypes'</span></div><div class="line"><span class="keyword">import</span> nock <span class="keyword">from</span> <span class="string">'nock'</span></div><div class="line"><span class="keyword">import</span> expect <span class="keyword">from</span> <span class="string">'expect'</span> <span class="comment">// You can use any testing library</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> middlewares = [thunk]</div><div class="line"><span class="keyword">const</span> mockStore = configureMockStore(middlewares)</div><div class="line"></div><div class="line">describe(<span class="string">'async actions'</span>, () =&gt; &#123;</div><div class="line">  afterEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    nock.cleanAll()</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  it(<span class="string">'creates FETCH_TODOS_SUCCESS when fetching todos has been done'</span>, () =&gt; &#123;</div><div class="line">    nock(<span class="string">'http://example.com/'</span>)</div><div class="line">      .get(<span class="string">'/todos'</span>)</div><div class="line">      .reply(<span class="number">200</span>, &#123; <span class="attr">body</span>: &#123; <span class="attr">todos</span>: [<span class="string">'do something'</span>] &#125; &#125;)</div><div class="line"></div><div class="line">    <span class="keyword">const</span> expectedActions = [</div><div class="line">      &#123; <span class="attr">type</span>: types.FETCH_TODOS_REQUEST &#125;,</div><div class="line">      &#123; <span class="attr">type</span>: types.FETCH_TODOS_SUCCESS, <span class="attr">body</span>: &#123; <span class="attr">todos</span>: [<span class="string">'do something'</span>] &#125; &#125;</div><div class="line">    ]</div><div class="line">    <span class="keyword">const</span> store = mockStore(&#123; <span class="attr">todos</span>: [] &#125;)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> store.dispatch(actions.fetchTodos()).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">      <span class="comment">// return of async actions</span></div><div class="line">      expect(store.getActions()).toEqual(expectedActions)</div><div class="line">    &#125;)</div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h3 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h3><h4 id="it-name-fn-函数中的异步调用"><a href="#it-name-fn-函数中的异步调用" class="headerlink" title="it(name,fn)函数中的异步调用"></a><code>it(name,fn)</code>函数中的异步调用</h4><p>在it的测试函数fn中，有时会调用异步方法。如果没有返回值的话fn会不等待异步方法执行完毕直接返回。所以需要把调用的异步方法作为fn的返回值，或者为fn添加一个参数done，在异步调用结束后调用done()。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//this block signature will trigger async behavior.</span></div><div class="line">it(<span class="string">"should work"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">done</span>)</span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//this block signature will run synchronously</span></div><div class="line">it(<span class="string">"should work"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="comment">//...</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">it(<span class="string">'template advance'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">doneFn</span>) </span>&#123;</div><div class="line">        $.ajax(&#123;</div><div class="line">            <span class="attr">url</span>: <span class="string">'public/gustavo-salgado.mock.json'</span>,</div><div class="line">            <span class="attr">dataType</span>: <span class="string">'json'</span>,</div><div class="line">            <span class="attr">success</span>: <span class="function"><span class="keyword">function</span> (<span class="params">data, response</span>) </span>&#123;</div><div class="line">                <span class="comment">// Here your expected using data</span></div><div class="line">                expect(<span class="number">1</span>).toBe(<span class="number">1</span>)</div><div class="line">                doneFn();</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">error</span>: <span class="function"><span class="keyword">function</span> (<span class="params">data, response</span>) </span>&#123;</div><div class="line">                <span class="comment">// Here your expected using data</span></div><div class="line">                expect(<span class="number">1</span>).toBe(<span class="number">1</span>)</div><div class="line">                doneFn();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div></pre></td></tr></table></figure>
-<p>参考：<a href="https://stackoverflow.com/questions/22604644/jasmine-async-callback-was-not-invoked-within-timeout-specified-by-jasmine-defa" target="_blank" rel="external">stackoverflow问题</a></p>
-<h3 id="测试覆盖率"><a href="#测试覆盖率" class="headerlink" title="测试覆盖率"></a>测试覆盖率</h3><p>使用<code>--coverage</code>参数可以跑一遍所有测试用例并显示覆盖率。<br><img src="http://ooaqxiz7b.bkt.clouddn.com/QQ20170730-154649@2x.png" alt="image"><br>可以看到还是有很多语句和分支没有覆盖到的，最后一列可以提示没有覆盖到的代码行数。</p>
-<p>这个星期研究了几天React/Redux测试，终于大致了解了需要测试的东西和测试思路。React组件部分选用了JEST+Enzyme的方式测试，不过还是存在很多疑惑。 最后只想说一句，TDD大法好，一口气写这么多测试用例太作死了😭</p>
-<hr>
-<p>参考资料：</p>
-<ul>
-<li><a href="https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#testing-components" target="_blank" rel="external">create-react-app官方手册</a></li>
-<li><a href="http://redux.js.org/docs/recipes/WritingTests.html" target="_blank" rel="external">Redux官方文档</a></li>
-<li><a href="http://facebook.github.io/jest/docs/en/getting-started.html#content" target="_blank" rel="external">Jest官方文档</a></li>
-<li><a href="http://arnaudbenard.com/redux-mock-store/" target="_blank" rel="external">Redux-mock-store</a></li>
-</ul>
+          Jest用法Jest是个基于Node的test runner。它是运行在node环境而不是真实浏览器的。我们要使用它来编写单元测试，测试编写好的Redux代码。
+安装：1npm install --save-dev jest
+常用的一些函数介绍：
 
-          
+describe(name, fn) 用来定义一组
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/30/Redux项目测试从入门到出门（JEST）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -535,6 +496,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -547,17 +512,21 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/27/React Native动画小栗子/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="oraisdy">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Dora's blog">
     </span>
 
     
@@ -608,6 +577,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -616,62 +588,31 @@
       
         
           
-            <p>今天学习了React Native中的Animated库，顺便用它给app做了一个登录界面的小动画。</p>
-<p>先上效果图：</p>
-<p><img src="http://ooaqxiz7b.bkt.clouddn.com/QQ20170626-234744-HD.gif" alt="image"></p>
-<p>代码大概在一百行，<a href="https://github.com/oraisdy/react-native-icon-rotation/blob/master/Animation.js" target="_blank" rel="external">源码点这里</a>。</p>
-<p>这个动画其实是背景天空做横向运动与一张环形的icon图做旋转运动的并行执行。其实也是懒得换算位置所以直接把四个图标拼在了一张图里然后添加了一个圆形的遮罩层。😑</p>
-<p>做一个小栗子的步骤分解：</p>
-<ol>
-<li><p>使用Animated组件，如Animated.View，Animated.Image Animated.Text</p>
-</li>
-<li><p>使用Animated.Value设定一个或多个初始化值（其实就是你想要在动画中改变的属性的初始值）。</p>
-</li>
-<li><p>将动画中要改变的值绑定到动画目标的属性上。</p>
-<p> 这里介绍一个很强大的方法：interpolate()。它是这么用的：</p>
- <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> interpolateRotation = <span class="keyword">this</span>.rotationValue.interpolate(&#123;</div><div class="line">  <span class="attr">inputRange</span>: [<span class="number">0</span>, <span class="number">1</span>],</div><div class="line">  <span class="attr">outputRange</span>: [<span class="string">"0deg"</span>, <span class="string">"-360deg"</span>]</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p> 而当value为0.5时，会输出-180deg。也就是说对区间进行了映射。</p>
-</li>
-<li><p>通过Animated.timing等函数设定动画参数。</p>
-</li>
-<li><p>调用start启动。</p>
-</li>
-</ol>
-<p>介绍一下用到的几个重要的动画执行控制API：</p>
-<ul>
-<li>Animated.sequence() 依次一个个的执行一系列动画</li>
-<li>Animated.delay() 根据给定的一个延迟时间延迟启动接下来的动画</li>
-<li>Animated.parallel() 并行执行两个或多个动画</li>
-<li>Animated.stagger() 接受一个延迟时间和一系列动画数组，每隔延迟时间执行下一个动画（其实是插入了delay的parallel）</li>
-</ul>
-<p>想要把动画循环播放？很简单，Animated的start方法提供了一个回调函数，将在动画结束的时候执行，所以只要这么写：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">componentDidMount() &#123;</div><div class="line">  <span class="keyword">this</span>.startAnimation();</div><div class="line">&#125;</div><div class="line"></div><div class="line">startAnimation() &#123;</div><div class="line">  <span class="keyword">this</span>.rotationValue.setValue(<span class="number">0</span>);</div><div class="line">  <span class="keyword">this</span>.zoomValue.setValue(<span class="number">0</span>);</div><div class="line">  Animated.parallel([</div><div class="line">    Animated.sequence(</div><div class="line">      [<span class="number">0.25</span>, <span class="number">0.5</span>, <span class="number">0.75</span>, <span class="number">1</span>].map(<span class="function"><span class="params">v</span> =&gt;</span></div><div class="line">        Animated.timing(<span class="keyword">this</span>.rotationValue, &#123;</div><div class="line">          <span class="attr">toValue</span>: v,</div><div class="line">          <span class="attr">duration</span>: <span class="number">1300</span></div><div class="line">        &#125;)</div><div class="line">      )</div><div class="line">    ),</div><div class="line"></div><div class="line">    Animated.timing(<span class="keyword">this</span>.zoomValue, &#123;</div><div class="line">      <span class="attr">toValue</span>: <span class="number">1</span>,</div><div class="line">      <span class="attr">duration</span>: <span class="number">6000</span></div><div class="line">    &#125;)</div><div class="line">  ]).start(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.startAnimation());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>关于我的小动画就说完了。</p>
-<p>下面才是重头戏。🙊</p>
-<p>想要更深入的了解Animated：</p>
-<ul>
-<li>API： <a href="https://facebook.github.io/react-native/docs/animated.html" target="_blank" rel="external">https://facebook.github.io/react-native/docs/animated.html</a></li>
-<li>原理和性能优化：<a href="http://www.alloyteam.com/2016/01/reactnative-animated/" target="_blank" rel="external">http://www.alloyteam.com/2016/01/reactnative-animated/</a></li>
-<li>更多的动画小栗子：<a href="https://codeburst.io/react-native-nine-animation-screencast-tutorials-9d031e8bb86f" target="_blank" rel="external">https://codeburst.io/react-native-nine-animation-screencast-tutorials-9d031e8bb86f</a></li>
-</ul>
-<p>👋👋👋</p>
+          今天学习了React Native中的Animated库，顺便用它给app做了一个登录界面的小动画。
+先上效果图：
 
-          
+代码大概在一百行，源码点这里。
+这个动画其实是背景天空做横向运动与一张环形的icon图做旋转运动的并行执行。其实也是懒得换算位置所以直接把四个图标拼在了一张图里然后添加了一个圆形的遮
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/27/React Native动画小栗子/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -685,6 +626,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -697,17 +642,21 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/12/ReactNative导航库react-native-router-flux源码分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="oraisdy">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Dora's blog">
     </span>
 
     
@@ -758,6 +707,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -766,73 +718,28 @@
       
         
           
-            <p>写了一周的React-Native，今天分析一下项目中使用的一个导航库的源码：react-native-router-flux<a href="https://github.com/aksonov/react-native-router-flux" target="_blank" rel="external">（源码地址）</a>。这是一个一年以前的项目，事实上RN的更新很快，这个库也有点落后了，但库本身比较简单可以满足现在在做的项目的需求。【而且我还不太会用Redux🙄</p>
-<p>先简单介绍一下这个库的特性，直接搬上官网的简介吧。</p>
-<h3 id="Usages"><a href="#Usages" class="headerlink" title="Usages"></a>Usages</h3><p>index.js:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;Scene, Router&#125; <span class="keyword">from</span> <span class="string">'react-native-router-flux'</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> &lt;Router&gt;</div><div class="line">      &lt;Scene key="root"&gt;</div><div class="line">        &lt;Scene key="login" component=&#123;Login&#125; title="Login"/&gt;</div><div class="line">        &lt;Scene key="register" component=&#123;Register&#125; title="Register"/&gt;</div><div class="line">        &lt;Scene key="home" component=&#123;Home&#125;/&gt;</div><div class="line">      &lt;/Scene&gt;</div><div class="line">    &lt;/Router&gt;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>On any Scene, you can also call the following functions by first importing the Actions object:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">import &#123;Actions&#125; from &apos;react-native-router-flux&apos;</div></pre></td></tr></table></figure></p>
-<p>And then:</p>
-<ul>
-<li><code>Actions.ACTION_NAME(PARAMS)</code> will call the appropriate action and params will be passed to the scene.</li>
-<li><code>Actions.pop()</code> will pop the current screen. It accepts following optional params:<ul>
-<li><code>{popNum: [number]}</code> allows to pop multiple screens at once</li>
-<li><code>{refresh: {...propsToSetOnPreviousScene}}</code> allows to refresh the props of the scene that it pops back to</li>
-</ul>
-</li>
-<li><code>Actions.refresh(PARAMS)</code> will update the properties of the current screen.</li>
-</ul>
-<p>简单来说，react-native-router-flux提供了比较便捷的界面跳转管理；同时内置了navbar、navtab等常用的导航组件。我主要分析前一部分的源码实现。</p>
-<h3 id="Router-与-Scene"><a href="#Router-与-Scene" class="headerlink" title="Router 与 Scene"></a>Router 与 Scene</h3><p>从<code>Usages</code>中可以看出，RNRF中想要定义路由路径很简单，通过Router包裹其中不同的屏幕（Scene）就可以了。</p>
-<p>Router.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">handleProps(props) &#123;</div><div class="line">    ...</div><div class="line">    </div><div class="line">    let scenes = props.children;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(props.children) || props.children.props.component) &#123;</div><div class="line">        scenes = (</div><div class="line">          <span class="xml"><span class="tag">&lt;<span class="name">Scene</span>                    // 添加一个<span class="attr">root</span> <span class="attr">scene</span></span></span></div><div class="line">            <span class="attr">key</span>=<span class="string">"__root"</span></div><div class="line">            <span class="attr">hideNav</span></div><div class="line">            &#123;<span class="attr">...this.props</span>&#125;</div><div class="line">          &gt;</div><div class="line">            &#123;props.children&#125;        // props.children表示组件的所有子节点</div><div class="line">          <span class="tag">&lt;/<span class="name">Scene</span>&gt;</span></div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">    scenesMap = Actions.create(scenes, props.wrapBy);</div><div class="line">    </div><div class="line">    <span class="keyword">const</span> &#123; children, styles, scenes, reducer, createReducer, ...parentProps &#125; = props;</div><div class="line"></div><div class="line">    scenesMap.rootProps = parentProps;</div><div class="line"></div><div class="line">    <span class="keyword">const</span> initialState = getInitialStateFromRoot(scenesMap);</div><div class="line">    <span class="keyword">const</span> reducerCreator = props.createReducer || Reducer;</div><div class="line"></div><div class="line">    <span class="keyword">const</span> routerReducer = props.reducer || (</div><div class="line">      reducerCreator(&#123;</div><div class="line">        initialState,</div><div class="line">        <span class="attr">scenes</span>: scenesMap,</div><div class="line">      &#125;));</div><div class="line"></div><div class="line">    <span class="keyword">return</span> routerReducer;   <span class="comment">//返回了一个Reducer存储各个scene</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Router的任务是找出其中包裹的Scenes并对它们进行维护。这里调用了Actions中的create()方法使用递归的方式，最后返回根scene及其所有子scene的props树状结构。下面的代码做了一些初始化工作（觉得这部分代码比较乱 大概看一眼就行~）：</p>
-<p>Router.js:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">renderNavigation(navigationState, onNavigate) &#123;</div><div class="line">    <span class="keyword">if</span> (!navigationState) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">    &#125;</div><div class="line">    Actions.get = <span class="function"><span class="params">key</span> =&gt;</span> findElement(navigationState, key, ActionConst.REFRESH);</div><div class="line">    Actions.callback = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</div><div class="line">      <span class="keyword">const</span> constAction = (props.type &amp;&amp; ActionMap[props.type] ? ActionMap[props.type] : <span class="literal">null</span>);</div><div class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.props.dispatch) &#123;</div><div class="line">        <span class="keyword">if</span> (constAction) &#123;</div><div class="line">          <span class="keyword">this</span>.props.dispatch(&#123; ...props, <span class="attr">type</span>: constAction &#125;);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">          <span class="keyword">this</span>.props.dispatch(props);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> (constAction ? onNavigate(&#123; ...props, <span class="attr">type</span>: constAction &#125;) : onNavigate(props));</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> &lt;DefaultRenderer onNavigate=&#123;onNavigate&#125; navigationState=&#123;navigationState&#125; /&gt;;</div><div class="line">&#125;  </div><div class="line">render() &#123;</div><div class="line">    if (!this.state.reducer) return null;</div><div class="line"></div><div class="line">    return (</div><div class="line">      &lt;NavigationRootContainer</div><div class="line">        reducer=&#123;this.state.reducer&#125;</div><div class="line">        renderNavigation=&#123;this.renderNavigation&#125;</div><div class="line">      /&gt;</div><div class="line">    );</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>NavigationRootContainer.js:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">render(): ReactElement &#123;</div><div class="line">    <span class="keyword">const</span> navigation = <span class="keyword">this</span>.props.renderNavigation(</div><div class="line">      <span class="keyword">this</span>.state.navState,</div><div class="line">      <span class="keyword">this</span>.handleNavigation</div><div class="line">    );</div><div class="line">    <span class="keyword">return</span> navigation;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">handleNavigation(action: <span class="built_in">Object</span>): boolean &#123;</div><div class="line">  <span class="keyword">const</span> navState = <span class="keyword">this</span>.props.reducer(<span class="keyword">this</span>.state.navState, action);</div><div class="line">  <span class="keyword">if</span> (navState === <span class="keyword">this</span>.state.navState) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">this</span>.setState(&#123;</div><div class="line">    navState,</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.props.persistenceKey) &#123;</div><div class="line">    AsyncStorage.setItem(<span class="keyword">this</span>.props.persistenceKey, <span class="built_in">JSON</span>.stringify(navState));</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>最终，在Router中建立了一个NavigationRootContainer组件。其中包含了一个reducer，可以理解为负责存储和改变scenes的仓库管理员；renderNavigation则提供了onNavigate方法放在导航组件的props中，为它们操纵Actions提供了接口。</p>
-<p>例如在我的TSS项目中，借助react-devtools可以查看NavigationRootContainer的navigationState如下图，实际上navigationState和onNavigate会作为props向下传递给所有组件。</p>
-<p><img src="http://ooaqxiz7b.bkt.clouddn.com/QQ20170612-145614@2x.png?imageView/2/w/300" alt="image"></p>
-<p>DefaultRenderer.js:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> renderScene(<span class="comment">/* NavigationSceneRendererProps */</span> props) &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      <span class="xml"><span class="tag">&lt;<span class="name">DefaultRenderer</span></span></span></div><div class="line">        <span class="attr">key</span>=<span class="string">&#123;props.scene.navigationState.key&#125;</span></div><div class="line">        <span class="attr">onNavigate</span>=<span class="string">&#123;props.onNavigate&#125;</span></div><div class="line">        <span class="attr">navigationState</span>=<span class="string">&#123;props.scene.navigationState&#125;</span></div><div class="line">      /&gt;</div><div class="line">    );</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<h3 id="Actions-与-Reducer"><a href="#Actions-与-Reducer" class="headerlink" title="Actions 与 Reducer"></a>Actions 与 Reducer</h3><p>跳过一些关于导航界面显示的详细代码，我们直接看Actions —— 这个类中定义了实现界面跳转的核心方法。而关于状态(navigationState)的改变则是由Reducer类具体实现。</p>
-<p>下面挑选三个方法节选代码分析：</p>
-<ul>
-<li><p>Actions.ACTION_NAME(PARAMS) </p>
-<blockquote>
-<p>Actions.ACTION_NAME(PARAMS) will call the appropriate action and params will be passed to the scene.</p>
-</blockquote>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">case</span> ActionConst.PUSH:</div><div class="line">  <span class="keyword">if</span> (state.children[state.index].sceneKey === action.key &amp;&amp; !props.clone</div><div class="line">    &amp;&amp; checkPropertiesEqual(action, state.children[state.index])) &#123;</div><div class="line">    <span class="keyword">return</span> state;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    ...state,</div><div class="line">    <span class="attr">index</span>: state.index + <span class="number">1</span>,</div><div class="line">    <span class="attr">from</span>: <span class="literal">null</span>,</div><div class="line">    <span class="attr">children</span>: [...state.children, </div><div class="line">        getInitialState(props, scenes, state.index + <span class="number">1</span>, </div><div class="line">        action)],</div><div class="line"> &#125;;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p>Actions.pop()</p>
-<blockquote>
-<p>Actions.pop() will pop the current screen. It accepts     following optional params:<br>  {popNum: [number]} allows to pop multiple screens at once<br>  {refresh: {…propsToSetOnPreviousScene}} allows to refresh the props of the scene that it pops back to.</p>
-</blockquote>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">case</span> ActionConst.BACK_ACTION: &#123;</div><div class="line">  </div><div class="line">  <span class="keyword">if</span> (state.index === <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">return</span> state;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">let</span> popNum = <span class="number">1</span>;</div><div class="line">  <span class="keyword">if</span> (action.popNum) &#123;</div><div class="line">    popNum = action.popNum;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    ...state,</div><div class="line">    <span class="attr">index</span>: state.index - popNum,</div><div class="line">    <span class="attr">from</span>: state.children[state.children.length - popNum],</div><div class="line">    <span class="attr">children</span>: refreshTopChild(state.children.slice(<span class="number">0</span>, <span class="number">-1</span> * popNum), action.refresh),</div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>Actions.refresh(PARAMS)</p>
-<blockquote>
-<p>Actions.refresh(PARAMS) will update the properties of the current screen.</p>
-</blockquote>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">case</span> ActionConst.REFRESH:</div><div class="line">  <span class="keyword">return</span> props.base ? &#123;</div><div class="line">    <span class="attr">navBar</span>: state.navBar,</div><div class="line">    ...scenes.rootProps,</div><div class="line">    ...props,</div><div class="line">    <span class="attr">key</span>: state.key,</div><div class="line">    <span class="attr">from</span>: <span class="literal">null</span> &#125;</div><div class="line">  : &#123;</div><div class="line">    ...state,</div><div class="line">    ...props,</div><div class="line">    <span class="attr">key</span>: state.key,</div><div class="line">    <span class="attr">from</span>: <span class="literal">null</span>,</div><div class="line"> &#125;;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>不难发现其实导航库以栈的形式记录了各个scene，通过改变index模拟栈顶。</p>
-
-          
+          写了一周的React-Native，今天分析一下项目中使用的一个导航库的源码：react-native-router-flux（源码地址）。这是一个一年以前的项目，事实上RN的更新很快，这个库也有点落后了，但库本身比较简单可以满足现在在做的项目的需求。【而且我还不太会用Redux🙄
+先简单介绍一下
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/12/ReactNative导航库react-native-router-flux源码分析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -846,6 +753,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -858,17 +769,21 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/27/Android中的MVP与MVVM/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="oraisdy">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Dora's blog">
     </span>
 
     
@@ -919,6 +834,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -927,101 +845,28 @@
       
         
           
-            <p>今天发现了一篇长文：<a href="https://zhuanlan.zhihu.com/p/26799645" target="_blank" rel="external">GUI 应用程序架构的十年变迁：MVC、MVP、MVVM、Unidirectional、Clean</a>，对于MV*模式解释的十分详尽。我对文中一些内容进行了笔记，并且将Android部分结合代码希望能更深入的理解。</p>
-<p>所有代码来自Github仓库: <a href="https://github.com/ivacf/archi" target="_blank" rel="external">https://github.com/ivacf/archi</a></p>
-<h2 id="MV-模式中的三种元素"><a href="#MV-模式中的三种元素" class="headerlink" title="MV*模式中的三种元素"></a>MV*模式中的三种元素</h2><p>Model：负责操纵数据。</p>
-<p>View：负责将渲染数据展示给用户和响应用户界面操作。Activity和Fragment都属于View层。</p>
-<p>Controller / Presenter / ViewModel：作为View与Model交互的中间纽带，处理与用户交互的负责逻辑。</p>
-<h2 id="经典Android程序"><a href="#经典Android程序" class="headerlink" title="经典Android程序"></a>经典Android程序</h2><p>在经典的Android程序中，Activity负责调用model中的方法来处理数据和更新界面，它的职责过于庞大和复杂，并且难以测试。</p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>MainActivity.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    setContentView(R.layout.activity_main);</div><div class="line">    progressBar = (ProgressBar) findViewById(R.id.progress);</div><div class="line">    infoTextView = (TextView) findViewById(R.id.text_info);</div><div class="line">    <span class="comment">//Set up ToolBar</span></div><div class="line">    toolbar = (Toolbar) findViewById(R.id.toolbar);</div><div class="line">    setSupportActionBar(toolbar);</div><div class="line">    <span class="comment">//Set up RecyclerView</span></div><div class="line">    reposRecycleView = (RecyclerView) findViewById(R.id.repos_recycler_view);</div><div class="line">    setupRecyclerView(reposRecycleView);</div><div class="line">    <span class="comment">// Set up search button</span></div><div class="line">    searchButton = (ImageButton) findViewById(R.id.button_search);</div><div class="line">    searchButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">            loadGithubRepos(editTextUsername.getText().toString());</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    <span class="comment">//Set up username EditText</span></div><div class="line">    editTextUsername = (EditText) findViewById(R.id.edit_text_username);</div><div class="line">    editTextUsername.addTextChangedListener(mHideShowButtonTextWatcher);</div><div class="line">    editTextUsername.setOnEditorActionListener(<span class="keyword">new</span> TextView.OnEditorActionListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onEditorAction</span><span class="params">(TextView v, <span class="keyword">int</span> actionId, KeyEvent event)</span> </span>&#123;</div><div class="line">            <span class="keyword">if</span> (actionId == EditorInfo.IME_ACTION_SEARCH) &#123;</div><div class="line">                String username = editTextUsername.getText().toString();</div><div class="line">                <span class="keyword">if</span> (username.length() &gt; <span class="number">0</span>) loadGithubRepos(username);</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">loadGithubRepos</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">    progressBar.setVisibility(View.VISIBLE);</div><div class="line">    reposRecycleView.setVisibility(View.GONE);</div><div class="line">    infoTextView.setVisibility(View.GONE);</div><div class="line">    ArchiApplication application = ArchiApplication.get(<span class="keyword">this</span>);</div><div class="line">    GithubService githubService = application.getGithubService();</div><div class="line">    subscription = githubService.publicRepositories(username)</div><div class="line">            .observeOn(AndroidSchedulers.mainThread())</div><div class="line">            .subscribeOn(application.defaultSubscribeScheduler())</div><div class="line">            .subscribe(<span class="keyword">new</span> Subscriber&lt;List&lt;Repository&gt;&gt;() &#123;</div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</div><div class="line">                    progressBar.setVisibility(View.GONE);</div><div class="line">                    <span class="keyword">if</span> (reposRecycleView.getAdapter().getItemCount() &gt; <span class="number">0</span>) &#123;</div><div class="line">                        reposRecycleView.requestFocus();</div><div class="line">                        hideSoftKeyboard();</div><div class="line">                        reposRecycleView.setVisibility(View.VISIBLE);</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        infoTextView.setText(R.string.text_empty_repos);</div><div class="line">                        infoTextView.setVisibility(View.VISIBLE);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable error)</span> </span>&#123;</div><div class="line">                    Log.e(TAG, <span class="string">"Error loading GitHub repos "</span>, error);</div><div class="line">                    progressBar.setVisibility(View.GONE);</div><div class="line">                    <span class="keyword">if</span> (error <span class="keyword">instanceof</span> HttpException</div><div class="line">                            &amp;&amp; ((HttpException) error).code() == <span class="number">404</span>) &#123;</div><div class="line">                        infoTextView.setText(R.string.error_username_not_found);</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        infoTextView.setText(R.string.error_loading_repos);</div><div class="line">                    &#125;</div><div class="line">                    infoTextView.setVisibility(View.VISIBLE);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(List&lt;Repository&gt; repositories)</span> </span>&#123;</div><div class="line">                    Log.i(TAG, <span class="string">"Repos loaded "</span> + repositories);</div><div class="line">                    RepositoryAdapter adapter =</div><div class="line">                            (RepositoryAdapter) reposRecycleView.getAdapter();</div><div class="line">                    adapter.setRepositories(repositories);</div><div class="line">                    adapter.notifyDataSetChanged();</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="MVC存在的问题"><a href="#MVC存在的问题" class="headerlink" title="MVC存在的问题"></a>MVC存在的问题</h2><p>MVC模式在一些小型项目或者简单的界面上仍旧有极大的可用性，但是在现代富客户端开发中导致职责分割不明确、功能模块重用性、View的组合性较差。</p>
-<p><img src="http://ooaqxiz7b.bkt.clouddn.com/v2-b5b871254258aca1a4c359c07a4b94c5_b.jpg" alt="image"></p>
-<h2 id="MVP"><a href="#MVP" class="headerlink" title="MVP"></a>MVP</h2><p>从 MVC 到 MVP 的变迁完成了对于 <strong>View 与 Model 的解耦</strong>，改进了职责分配与可测试性。<br><img src="http://ooaqxiz7b.bkt.clouddn.com/v2-f12fd8820ae23a57c688ddfdb4945dc2_b.jpg" alt="image"></p>
-<h3 id="使用情景"><a href="#使用情景" class="headerlink" title="使用情景"></a>使用情景</h3><ul>
-<li>用户产生输入</li>
-<li>View监听到Action并进行转化发送给Presenter处理</li>
-<li>Presenter调用Model更新数据</li>
-<li>Model更新数据后通知和返回数据给Presenter</li>
-<li>Presenter把更新后的数据交给View显示</li>
-</ul>
-<h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><ul>
-<li>将Presenter与View绑定，View将职责分派到自己对应的Presenter中。</li>
-</ul>
-<p>MainPresenter:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> MainMvpView mainMvpView;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attachView</span><span class="params">(MainMvpView view)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.mainMvpView = view;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">detachView</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.mainMvpView = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">if</span> (subscription != <span class="keyword">null</span>) subscription.unsubscribe();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>MainActivity:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">private</span> MainPresenter presenter;</div><div class="line">   </div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    </div><div class="line">    <span class="comment">//绑定View</span></div><div class="line">    presenter = <span class="keyword">new</span> MainPresenter();</div><div class="line">    presenter.attachView(<span class="keyword">this</span>);</div><div class="line"></div><div class="line">    searchButton = (ImageButton) findViewById(R.id.button_search);</div><div class="line">    searchButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">            presenter.loadRepositories(editTextUsername.getText().toString());     <span class="comment">//调用presenter</span></div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    ...</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showRepositories</span><span class="params">(List&lt;Repository&gt; repositories)</span> </span>&#123;</div><div class="line">    ...      <span class="comment">// 界面的具体实现</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<ul>
-<li>Presenter中调用Model更新数据，并且调用View中进行重新渲染<br>MainPresenter:<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">loadRepositories</span><span class="params">(String usernameEntered)</span> </span>&#123;</div><div class="line">    String username = usernameEntered.trim();</div><div class="line">    <span class="keyword">if</span> (username.isEmpty()) <span class="keyword">return</span>;</div><div class="line"></div><div class="line">    mainMvpView.showProgressIndicator();</div><div class="line">    <span class="keyword">if</span> (subscription != <span class="keyword">null</span>) subscription.unsubscribe();</div><div class="line">    </div><div class="line">    <span class="comment">// 获取和调用Model更新数据</span></div><div class="line">    ArchiApplication application = ArchiApplication.get(mainMvpView.getContext());</div><div class="line">    GithubService githubService = application.getGithubService();</div><div class="line">    subscription = githubService.publicRepositories(username)</div><div class="line">            .observeOn(AndroidSchedulers.mainThread())</div><div class="line">            .subscribeOn(application.defaultSubscribeScheduler())</div><div class="line">            .subscribe(<span class="keyword">new</span> Subscriber&lt;List&lt;Repository&gt;&gt;() &#123;</div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</div><div class="line">                    Log.i(TAG, <span class="string">"Repos loaded "</span> + repositories);</div><div class="line">                    </div><div class="line">                    <span class="comment">// 更新View</span></div><div class="line">                    <span class="keyword">if</span> (!repositories.isEmpty()) &#123;</div><div class="line">                        mainMvpView.showRepositories(repositories);</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        mainMvpView.showMessage(R.string.text_empty_repos);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable error)</span> </span>&#123;</div><div class="line">                    ...     <span class="comment">// 更新View</span></div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(List&lt;Repository&gt; repositories)</span> </span>&#123;</div><div class="line">                    MainPresenter.<span class="keyword">this</span>.repositories = repositories;</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>订阅model使用了RxJava库。RaJava is “a library for composing asynchronous and event-based programs using observable sequences for the Java VM”.</p>
-</blockquote>
-<h3 id="MVP的缺陷"><a href="#MVP的缺陷" class="headerlink" title="MVP的缺陷"></a>MVP的缺陷</h3><ul>
-<li>View需要了解Presenter的细节，将用户交互进行转化并发送给Presenter处理</li>
-<li>Model需要了解Presenter的细节，在完成更新后把新数据传递给Presenter</li>
-</ul>
-<h2 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h2><p>而从 MVP 到 MVVM，添加了View与ViewModel之间的<strong>数据绑定</strong>，使得 View 完全的<strong>无状态化</strong>。</p>
-<p><img src="http://ooaqxiz7b.bkt.clouddn.com/v2-b94a224f58fae5c7bc00f93ab30d1856_b.jpg" alt="image"></p>
-<h3 id="使用情景-1"><a href="#使用情景-1" class="headerlink" title="使用情景"></a>使用情景</h3><ul>
-<li><p>用户交互输入</p>
-</li>
-<li><p>View将数据直接传送给ViewModel，ViewModel保存这些状态数据</p>
-</li>
-<li><p>在有需要的情况下，ViewModel会将数据传送给Model</p>
-</li>
-<li><p>Model在更新完成之后通知ViewModel</p>
-</li>
-<li><p>ViewModel从Model中获取最新的模型，并且更新自己的数据状态</p>
-</li>
-<li><p>View根据最新的ViewModel的数据进行重新渲染</p>
-</li>
-</ul>
-<h3 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h3><blockquote>
-<p>代码的MVVM实现使用了DataBinding库</p>
-</blockquote>
-<ul>
-<li><p>XML中声明<strong>数据绑定(Data Binding)</strong><br>main_activity.xml:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">data</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">variable</span></span></div><div class="line">        <span class="attr">name</span>=<span class="string">"viewModel"</span></div><div class="line">        <span class="attr">type</span>=<span class="string">"uk.ivanc.archimvvm.viewmodel.MainViewModel"</span>/&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">data</span>&gt;</span></div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">ProgressBar</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/progress"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:layout_below</span>=<span class="string">"@id/layout_search"</span></div><div class="line">        <span class="attr">android:layout_centerHorizontal</span>=<span class="string">"true"</span></div><div class="line">        <span class="attr">android:layout_marginTop</span>=<span class="string">"20dp"</span></div><div class="line">        <span class="attr">app:visibility</span>=<span class="string">"@&#123;viewModel.progressVisibility&#125;"</span>/&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/text_info"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:layout_below</span>=<span class="string">"@id/layout_search"</span></div><div class="line">        <span class="attr">android:layout_centerHorizontal</span>=<span class="string">"true"</span></div><div class="line">        <span class="attr">android:layout_marginLeft</span>=<span class="string">"@dimen/vertical_margin"</span></div><div class="line">        <span class="attr">android:layout_marginRight</span>=<span class="string">"@dimen/vertical_margin"</span></div><div class="line">        <span class="attr">android:layout_marginTop</span>=<span class="string">"20dp"</span></div><div class="line">        <span class="attr">android:gravity</span>=<span class="string">"center"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"@&#123;viewModel.infoMessage&#125;"</span></div><div class="line">        <span class="attr">android:textColor</span>=<span class="string">"@color/secondary_text"</span></div><div class="line">        <span class="attr">android:textSize</span>=<span class="string">"18sp"</span></div><div class="line">        <span class="attr">app:visibility</span>=<span class="string">"@&#123;viewModel.infoMessageVisibility&#125;"</span>/&gt;</div><div class="line"></div><div class="line">...</div></pre></td></tr></table></figure>
-</li>
-<li><p>View中绑定ViewModel<br>/view/MainActivity.java:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">private</span> MainActivityBinding binding;</div><div class="line"><span class="keyword">private</span> MainViewModel mainViewModel;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    binding = DataBindingUtil.setContentView(<span class="keyword">this</span>, R.layout.main_activity);</div><div class="line">    mainViewModel = <span class="keyword">new</span> MainViewModel(<span class="keyword">this</span>, <span class="keyword">this</span>);</div><div class="line">    binding.setViewModel(mainViewModel);</div><div class="line">    setSupportActionBar(binding.toolbar);</div><div class="line">    setupRecyclerView(binding.reposRecyclerView);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRepositoriesChanged</span><span class="params">(List&lt;Repository&gt; repositories)</span> </span>&#123;</div><div class="line">    RepositoryAdapter adapter =</div><div class="line">            (RepositoryAdapter) binding.reposRecyclerView.getAdapter();</div><div class="line">    adapter.setRepositories(repositories);</div><div class="line">    adapter.notifyDataSetChanged();</div><div class="line">    hideSoftKeyboard();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>ViewModel中进行数据操作<br>/viewmodel/RepositoryViewModel</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> List&lt;Repository&gt; repositories;      <span class="comment">//持有并维护一个repository list</span></div><div class="line"></div><div class="line"><span class="comment">// 处理用户交互响应</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClickSearch</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">    loadGithubRepos(editTextUsernameValue);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 向model请求获取新数据并更新自己的数据</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadGithubRepos</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">    progressVisibility.set(View.VISIBLE);</div><div class="line">    recyclerViewVisibility.set(View.INVISIBLE);</div><div class="line">    infoMessageVisibility.set(View.INVISIBLE);</div><div class="line">    <span class="keyword">if</span> (subscription != <span class="keyword">null</span> &amp;&amp; !subscription.isUnsubscribed()) subscription.unsubscribe();</div><div class="line">    ArchiApplication application = ArchiApplication.get(context);</div><div class="line">    GithubService githubService = application.getGithubService();</div><div class="line">    subscription = githubService.publicRepositories(username)</div><div class="line">            .observeOn(AndroidSchedulers.mainThread())</div><div class="line">            .subscribeOn(application.defaultSubscribeScheduler())</div><div class="line">            .subscribe(<span class="keyword">new</span> Subscriber&lt;List&lt;Repository&gt;&gt;() &#123;</div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</div><div class="line">                    <span class="keyword">if</span> (dataListener != <span class="keyword">null</span>) dataListener.onRepositoriesChanged(repositories);<span class="comment">//调用View重新渲染</span></div><div class="line">                    progressVisibility.set(View.INVISIBLE);</div><div class="line">                    <span class="keyword">if</span> (!repositories.isEmpty()) &#123;</div><div class="line">                        recyclerViewVisibility.set(View.VISIBLE);</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        infoMessage.set(context.getString(R.string.text_empty_repos));</div><div class="line">                        infoMessageVisibility.set(View.VISIBLE);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable error)</span> </span>&#123;</div><div class="line">                    Log.e(TAG, <span class="string">"Error loading GitHub repos "</span>, error);</div><div class="line">                    progressVisibility.set(View.INVISIBLE);</div><div class="line">                    <span class="keyword">if</span> (isHttp404(error)) &#123;</div><div class="line">                        infoMessage.set(context.getString(R.string.error_username_not_found));</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        infoMessage.set(context.getString(R.string.error_loading_repos));</div><div class="line">                    &#125;</div><div class="line">                    infoMessageVisibility.set(View.VISIBLE);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(List&lt;Repository&gt; repositories)</span> </span>&#123;</div><div class="line">                    Log.i(TAG, <span class="string">"Repos loaded "</span> + repositories);</div><div class="line">                    MainViewModel.<span class="keyword">this</span>.repositories = repositories;</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="MVVM的缺陷"><a href="#MVVM的缺陷" class="headerlink" title="MVVM的缺陷"></a>MVVM的缺陷</h3><p>将View层轻量化、无状态化，不需要保存任何状态信息。同时ViewModel与View解耦，便于对View进行测试。MVVM存在的问题是：</p>
-<ul>
-<li>ViewModel的职责复杂</li>
-<li>由于View和ViewModel的双向绑定，数据可以被任意的修改，数据在多个ViewModel可能存在冗余与不一致问题</li>
-</ul>
-<blockquote>
-<p>可以查看这个Facebook消息列表数据不一致的例子：<a href="https://facebook.github.io/flux/docs/in-depth-overview.html#content" target="_blank" rel="external">https://facebook.github.io/flux/docs/in-depth-overview.html#content</a></p>
-</blockquote>
-<hr>
-<p>参考资料:</p>
-<ol>
-<li>GUI 应用程序架构的十年变迁：MVC、MVP、MVVM、Unidirectional、Clean（<a href="https://zhuanlan.zhihu.com/p/26799645）" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/26799645）</a></li>
-<li>棉花糖给 Android 带来的 Data Bindings（数据绑定库）（<a href="https://news.realm.io/cn/news/data-binding-android-boyar-mount/）" target="_blank" rel="external">https://news.realm.io/cn/news/data-binding-android-boyar-mount/）</a></li>
-</ol>
-<p>源码来自：<a href="https://github.com/ivacf/archi" target="_blank" rel="external">https://github.com/ivacf/archi</a></p>
-
-          
+          今天发现了一篇长文：GUI 应用程序架构的十年变迁：MVC、MVP、MVVM、Unidirectional、Clean，对于MV*模式解释的十分详尽。我对文中一些内容进行了笔记，并且将Android部分结合代码希望能更深入的理解。
+所有代码来自Github仓库: https://github.com
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/27/Android中的MVP与MVVM/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1035,6 +880,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1063,6 +912,7 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
@@ -1072,7 +922,7 @@
       <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
+               src="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460"
                alt="oraisdy" />
           <p class="site-author-name" itemprop="name">oraisdy</p>
            
@@ -1083,7 +933,7 @@
 
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives">
+              <a href="/archives/">
                 <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
@@ -1216,25 +1066,25 @@
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
 
 
-
-  
-  
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
-
   
 
   
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
 
 
 
@@ -1247,12 +1097,6 @@
 
 
 	
-
-
-
-
-
-  
 
 
 

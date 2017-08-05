@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,6 +10,7 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
 
 
 
@@ -74,7 +75,7 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="Hexo, NexT" />
@@ -86,7 +87,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
 
 
 
@@ -97,8 +98,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="React Native动画小栗子">
 <meta property="og:url" content="http://yoursite.com/2017/06/27/React Native动画小栗子/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Dora&#39;s blog">
 <meta property="og:description" content="今天学习了React Native中的Animated库，顺便用它给app做了一个登录界面的小动画。 先上效果图：  代码大概在一百行，源码点这里。 这个动画其实是背景天空做横向运动与一张环形的icon图做旋转运动的并行执行。其实也是懒得换算位置所以直接把四个图标拼在了一张图里然后添加了一个圆形的遮罩层。😑 做一个小栗子的步骤分解：  使用Animated组件，如Animated.View，An">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/QQ20170626-234744-HD.gif">
 <meta property="og:updated_time" content="2017-06-26T16:52:38.000Z">
 <meta name="twitter:card" content="summary">
@@ -113,8 +115,9 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
+    tabs: true,
     motion: true,
     duoshuo: {
       userId: '0',
@@ -138,11 +141,7 @@
 
 
 
-  <title>React Native动画小栗子 | Hexo</title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>React Native动画小栗子 | Dora's blog</title>
   
 
 
@@ -158,6 +157,9 @@
 
 
 
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -175,7 +177,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">Dora's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -211,7 +213,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -221,7 +223,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -257,17 +259,21 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/27/React Native动画小栗子/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="oraisdy">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Dora's blog">
     </span>
 
     
@@ -316,6 +322,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -335,7 +344,7 @@
 </li>
 <li><p>将动画中要改变的值绑定到动画目标的属性上。</p>
 <p> 这里介绍一个很强大的方法：interpolate()。它是这么用的：</p>
- <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> interpolateRotation = <span class="keyword">this</span>.rotationValue.interpolate(&#123;</div><div class="line">  <span class="attr">inputRange</span>: [<span class="number">0</span>, <span class="number">1</span>],</div><div class="line">  <span class="attr">outputRange</span>: [<span class="string">"0deg"</span>, <span class="string">"-360deg"</span>]</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> interpolateRotation = <span class="keyword">this</span>.rotationValue.interpolate(&#123;</div><div class="line">  inputRange: [<span class="number">0</span>, <span class="number">1</span>],</div><div class="line">  outputRange: [<span class="string">"0deg"</span>, <span class="string">"-360deg"</span>]</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p> 而当value为0.5时，会输出-180deg。也就是说对区间进行了映射。</p>
 </li>
 <li><p>通过Animated.timing等函数设定动画参数。</p>
@@ -351,7 +360,7 @@
 <li>Animated.stagger() 接受一个延迟时间和一系列动画数组，每隔延迟时间执行下一个动画（其实是插入了delay的parallel）</li>
 </ul>
 <p>想要把动画循环播放？很简单，Animated的start方法提供了一个回调函数，将在动画结束的时候执行，所以只要这么写：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">componentDidMount() &#123;</div><div class="line">  <span class="keyword">this</span>.startAnimation();</div><div class="line">&#125;</div><div class="line"></div><div class="line">startAnimation() &#123;</div><div class="line">  <span class="keyword">this</span>.rotationValue.setValue(<span class="number">0</span>);</div><div class="line">  <span class="keyword">this</span>.zoomValue.setValue(<span class="number">0</span>);</div><div class="line">  Animated.parallel([</div><div class="line">    Animated.sequence(</div><div class="line">      [<span class="number">0.25</span>, <span class="number">0.5</span>, <span class="number">0.75</span>, <span class="number">1</span>].map(<span class="function"><span class="params">v</span> =&gt;</span></div><div class="line">        Animated.timing(<span class="keyword">this</span>.rotationValue, &#123;</div><div class="line">          <span class="attr">toValue</span>: v,</div><div class="line">          <span class="attr">duration</span>: <span class="number">1300</span></div><div class="line">        &#125;)</div><div class="line">      )</div><div class="line">    ),</div><div class="line"></div><div class="line">    Animated.timing(<span class="keyword">this</span>.zoomValue, &#123;</div><div class="line">      <span class="attr">toValue</span>: <span class="number">1</span>,</div><div class="line">      <span class="attr">duration</span>: <span class="number">6000</span></div><div class="line">    &#125;)</div><div class="line">  ]).start(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.startAnimation());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">componentDidMount() &#123;</div><div class="line">  <span class="keyword">this</span>.startAnimation();</div><div class="line">&#125;</div><div class="line"></div><div class="line">startAnimation() &#123;</div><div class="line">  <span class="keyword">this</span>.rotationValue.setValue(<span class="number">0</span>);</div><div class="line">  <span class="keyword">this</span>.zoomValue.setValue(<span class="number">0</span>);</div><div class="line">  Animated.parallel([</div><div class="line">    Animated.sequence(</div><div class="line">      [<span class="number">0.25</span>, <span class="number">0.5</span>, <span class="number">0.75</span>, <span class="number">1</span>].map(<span class="function"><span class="params">v</span> =&gt;</span></div><div class="line">        Animated.timing(<span class="keyword">this</span>.rotationValue, &#123;</div><div class="line">          toValue: v,</div><div class="line">          duration: <span class="number">1300</span></div><div class="line">        &#125;)</div><div class="line">      )</div><div class="line">    ),</div><div class="line"></div><div class="line">    Animated.timing(<span class="keyword">this</span>.zoomValue, &#123;</div><div class="line">      toValue: <span class="number">1</span>,</div><div class="line">      duration: <span class="number">6000</span></div><div class="line">    &#125;)</div><div class="line">  ]).start(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.startAnimation());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>关于我的小动画就说完了。</p>
 <p>下面才是重头戏。🙊</p>
 <p>想要更深入的了解Animated：</p>
@@ -364,27 +373,15 @@
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
 
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -418,6 +415,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -451,6 +452,7 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
@@ -460,7 +462,7 @@
       <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
+               src="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460"
                alt="oraisdy" />
           <p class="site-author-name" itemprop="name">oraisdy</p>
            
@@ -471,7 +473,7 @@
 
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives">
+              <a href="/archives/">
                 <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
@@ -604,25 +606,25 @@
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
 
 
 
   
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
 
 
 
@@ -635,12 +637,6 @@
 
 
 	
-
-
-
-
-
-  
 
 
 

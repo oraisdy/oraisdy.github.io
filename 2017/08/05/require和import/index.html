@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,6 +10,7 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
 
 
 
@@ -74,7 +75,7 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="Hexo, NexT" />
@@ -86,23 +87,24 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
 
 
 
 
 
 
-<meta name="description" content="title:天天都在用的require和import我为什么还是错天天都在用require和import但有时还是会犯错。所以整理一下争取从原理上理解╮(╯_╰)╭ Node中的requireCommonJS模块规范require 来自 CommonJS 的模块规范。而 Node 也借鉴了 CommonJS 的 Modules 规范，使用require导入模块，用exports导出模块。 简单的">
+<meta name="description" content="天天都在用require和import但有时还是会犯错。所以整理一下争取从原理上理解╮(╯_╰)╭ Node中的requireCommonJS模块规范require 来自 CommonJS 的模块规范。而 Node 也借鉴了 CommonJS 的 Modules 规范，使用require导入模块，用exports导出模块。 简单的例子：123456789// module1.jsmodule.ex">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="天天都在用的require和import我为什么还是错">
 <meta property="og:url" content="http://yoursite.com/2017/08/05/require和import/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="title:天天都在用的require和import我为什么还是错天天都在用require和import但有时还是会犯错。所以整理一下争取从原理上理解╮(╯_╰)╭ Node中的requireCommonJS模块规范require 来自 CommonJS 的模块规范。而 Node 也借鉴了 CommonJS 的 Modules 规范，使用require导入模块，用exports导出模块。 简单的">
-<meta property="og:updated_time" content="2017-08-05T07:50:48.000Z">
+<meta property="og:site_name" content="Dora&#39;s blog">
+<meta property="og:description" content="天天都在用require和import但有时还是会犯错。所以整理一下争取从原理上理解╮(╯_╰)╭ Node中的requireCommonJS模块规范require 来自 CommonJS 的模块规范。而 Node 也借鉴了 CommonJS 的 Modules 规范，使用require导入模块，用exports导出模块。 简单的例子：123456789// module1.jsmodule.ex">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-05T08:38:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="title:天天都在用的require和import我为什么还是错天天都在用require和import但有时还是会犯错。所以整理一下争取从原理上理解╮(╯_╰)╭ Node中的requireCommonJS模块规范require 来自 CommonJS 的模块规范。而 Node 也借鉴了 CommonJS 的 Modules 规范，使用require导入模块，用exports导出模块。 简单的">
+<meta name="twitter:title" content="天天都在用的require和import我为什么还是错">
+<meta name="twitter:description" content="天天都在用require和import但有时还是会犯错。所以整理一下争取从原理上理解╮(╯_╰)╭ Node中的requireCommonJS模块规范require 来自 CommonJS 的模块规范。而 Node 也借鉴了 CommonJS 的 Modules 规范，使用require导入模块，用exports导出模块。 简单的例子：123456789// module1.jsmodule.ex">
 
 
 
@@ -111,8 +113,9 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
+    tabs: true,
     motion: true,
     duoshuo: {
       userId: '0',
@@ -136,11 +139,7 @@
 
 
 
-  <title> | Hexo</title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>天天都在用的require和import我为什么还是错 | Dora's blog</title>
   
 
 
@@ -156,6 +155,9 @@
 
 
 
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -173,7 +175,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">Dora's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -209,7 +211,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -219,7 +221,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -255,17 +257,21 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/05/require和import/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="oraisdy">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Dora's blog">
     </span>
 
     
@@ -273,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">天天都在用的require和import我为什么还是错</h1>
         
 
         <div class="post-meta">
@@ -314,16 +320,18 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
       
 
       
-        <hr>
-<h2 id="title-天天都在用的require和import我为什么还是错"><a href="#title-天天都在用的require和import我为什么还是错" class="headerlink" title="title:天天都在用的require和import我为什么还是错"></a>title:天天都在用的require和import我为什么还是错</h2><p>天天都在用require和import但有时还是会犯错。所以整理一下争取从原理上理解╮(╯_╰)╭</p>
+        <p>天天都在用require和import但有时还是会犯错。所以整理一下争取从原理上理解╮(╯_╰)╭</p>
 <h3 id="Node中的require"><a href="#Node中的require" class="headerlink" title="Node中的require"></a>Node中的require</h3><h4 id="CommonJS模块规范"><a href="#CommonJS模块规范" class="headerlink" title="CommonJS模块规范"></a>CommonJS模块规范</h4><p>require 来自 CommonJS 的模块规范。而 Node 也借鉴了 CommonJS 的 Modules 规范，使用<code>require</code>导入模块，用<code>exports</code>导出模块。</p>
-<p>简单的例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// module1.js</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">a</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</div><div class="line">  <span class="attr">b</span> : <span class="string">'xxx'</span></div><div class="line">&#125;;</div><div class="line"><span class="comment">// ----------------</span></div><div class="line"><span class="comment">// module2.js</span></div><div class="line"><span class="keyword">var</span> m = <span class="built_in">require</span>(<span class="string">'./a'</span>);</div><div class="line">m.a();</div></pre></td></tr></table></figure></p>
+<p>简单的例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// module1.js</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  a : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</div><div class="line">  b : <span class="string">'xxx'</span></div><div class="line">&#125;;</div><div class="line"><span class="comment">// ----------------</span></div><div class="line"><span class="comment">// module2.js</span></div><div class="line"><span class="keyword">var</span> m = <span class="built_in">require</span>(<span class="string">'./a'</span>);</div><div class="line">m.a();</div></pre></td></tr></table></figure></p>
 <h4 id="exports与module-exports"><a href="#exports与module-exports" class="headerlink" title="exports与module.exports"></a>exports与module.exports</h4><p>虽然这种直接在<code>exports</code>上复制来导出模块的方式很简单，但在 Node 中比较容易让人误解的就是为什么同时存在<code>exports</code>与<code>module.exports</code>了。</p>
 <p>在 Node 中，每个文件被当做一个模块。事实上，Node 在编译时对JS文件内容进行了首尾包装：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">exports, require, module, __filename, __dirname</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>);</div><div class="line">    exports.area = <span class="function"><span class="keyword">function</span> (<span class="params">radius</span>) </span>&#123;</div><div class="line">       <span class="keyword">return</span> <span class="built_in">Math</span>.PI * radius * radius; </div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
 <p>一个JS文件被进行了如上包装。这样做有几个作用：首先使每个模块文件之间作用域隔离；并且将当前模块对象的module对象(模块对象本身)、require()方法、exports属性等传递给了这个function()交由原生模块执行；最后，在模块文件内部，require、exports这些变量也可以使用了。</p>
@@ -361,27 +369,15 @@
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
 
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -411,6 +407,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -444,6 +444,7 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
@@ -462,7 +463,7 @@
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
+               src="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460"
                alt="oraisdy" />
           <p class="site-author-name" itemprop="name">oraisdy</p>
            
@@ -473,7 +474,7 @@
 
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives">
+              <a href="/archives/">
                 <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
@@ -513,7 +514,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-天天都在用的require和import我为什么还是错"><span class="nav-number">1.</span> <span class="nav-text">title:天天都在用的require和import我为什么还是错</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node中的require"><span class="nav-number">1.1.</span> <span class="nav-text">Node中的require</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CommonJS模块规范"><span class="nav-number">1.1.1.</span> <span class="nav-text">CommonJS模块规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exports与module-exports"><span class="nav-number">1.1.2.</span> <span class="nav-text">exports与module.exports</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-的-import"><span class="nav-number">1.2.</span> <span class="nav-text">ES6 的 import</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node中的require"><span class="nav-number">1.</span> <span class="nav-text">Node中的require</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CommonJS模块规范"><span class="nav-number">1.1.</span> <span class="nav-text">CommonJS模块规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exports与module-exports"><span class="nav-number">1.2.</span> <span class="nav-text">exports与module.exports</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-的-import"><span class="nav-number">2.</span> <span class="nav-text">ES6 的 import</span></a></li></ol></div>
             
 
           </div>
@@ -622,25 +623,25 @@
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
 
 
 
   
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
 
 
 
@@ -653,12 +654,6 @@
 
 
 	
-
-
-
-
-
-  
 
 
 
