@@ -94,12 +94,12 @@
 
 
 
-<meta name="description" content="title:交互式3D图形(WebGL&amp;amp;three.js) 学习笔记（一） 课程《交互式3D图形》的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第一篇，对应Lesson 1 - Introduction。  人眼，小孔成像相机与视锥体与人眼最大的不同是，pinhole cemera是倒立成像的，但为了简化">
+<meta name="description" content="课程《交互式3D图形》的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第一篇，对应Lesson 1 - Introduction。  人眼，小孔成像相机与视锥体与人眼最大的不同是，pinhole cemera是倒立成像的，但为了简化，我们认为相机将图像正立的呈现在它前方。我们将从这个虚拟屏幕到相机远平面之间的这个菱">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dora&#39;s blog">
+<meta property="og:title" content="交互式3D图形(WebGL&amp;three.js) 学习笔记（一）">
 <meta property="og:url" content="http://yoursite.com/2017/10/23/交互式3D图形(WebGL&three.js) 学习笔记（一）/index.html">
 <meta property="og:site_name" content="Dora&#39;s blog">
-<meta property="og:description" content="title:交互式3D图形(WebGL&amp;amp;three.js) 学习笔记（一） 课程《交互式3D图形》的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第一篇，对应Lesson 1 - Introduction。  人眼，小孔成像相机与视锥体与人眼最大的不同是，pinhole cemera是倒立成像的，但为了简化">
+<meta property="og:description" content="课程《交互式3D图形》的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第一篇，对应Lesson 1 - Introduction。  人眼，小孔成像相机与视锥体与人眼最大的不同是，pinhole cemera是倒立成像的，但为了简化，我们认为相机将图像正立的呈现在它前方。我们将从这个虚拟屏幕到相机远平面之间的这个菱">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/Pasted%20Graphic.png">
 <meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/Pasted%20Graphic%204.png?imageView2/0/w/400">
@@ -108,10 +108,10 @@
 <meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/vertexorder.png?imageView2/0/w/400">
 <meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/overlap.png?imageView2/0/w/100">
 <meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/z-buffer.png?imageView2/0/w/400">
-<meta property="og:updated_time" content="2017-10-23T08:27:57.000Z">
+<meta property="og:updated_time" content="2017-10-23T08:34:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dora&#39;s blog">
-<meta name="twitter:description" content="title:交互式3D图形(WebGL&amp;amp;three.js) 学习笔记（一） 课程《交互式3D图形》的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第一篇，对应Lesson 1 - Introduction。  人眼，小孔成像相机与视锥体与人眼最大的不同是，pinhole cemera是倒立成像的，但为了简化">
+<meta name="twitter:title" content="交互式3D图形(WebGL&amp;three.js) 学习笔记（一）">
+<meta name="twitter:description" content="课程《交互式3D图形》的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第一篇，对应Lesson 1 - Introduction。  人眼，小孔成像相机与视锥体与人眼最大的不同是，pinhole cemera是倒立成像的，但为了简化，我们认为相机将图像正立的呈现在它前方。我们将从这个虚拟屏幕到相机远平面之间的这个菱">
 <meta name="twitter:image" content="http://ooaqxiz7b.bkt.clouddn.com/Pasted%20Graphic.png">
 
 
@@ -147,7 +147,7 @@
 
 
 
-  <title> | Dora's blog</title>
+  <title>交互式3D图形(WebGL&three.js) 学习笔记（一） | Dora's blog</title>
   
 
 
@@ -287,7 +287,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">交互式3D图形(WebGL&three.js) 学习笔记（一）</h1>
         
 
         <div class="post-meta">
@@ -337,8 +337,7 @@
       
 
       
-        <hr>
-<h2 id="title-交互式3D图形-WebGL-amp-three-js-学习笔记（一）"><a href="#title-交互式3D图形-WebGL-amp-three-js-学习笔记（一）" class="headerlink" title="title:交互式3D图形(WebGL&amp;three.js) 学习笔记（一）"></a>title:交互式3D图形(WebGL&amp;three.js) 学习笔记（一）</h2><blockquote>
+        <blockquote>
 <p>课程<a href="https://cn.udacity.com/course/interactive-3d-graphics--cs291" target="_blank" rel="external">《交互式3D图形》</a>的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第一篇，对应Lesson 1 - Introduction。</p>
 </blockquote>
 <h3 id="人眼，小孔成像相机与视锥体"><a href="#人眼，小孔成像相机与视锥体" class="headerlink" title="人眼，小孔成像相机与视锥体"></a>人眼，小孔成像相机与视锥体</h3><p>与人眼最大的不同是，<code>pinhole cemera</code>是倒立成像的，但为了简化，我们认为相机将图像正立的呈现在它前方。我们将从这个虚拟屏幕到相机远平面之间的这个菱台称为<code>view frustum</code>。<br><img src="http://ooaqxiz7b.bkt.clouddn.com/Pasted%20Graphic.png" alt="image"></p>
@@ -454,8 +453,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/23/交互式3D图形(WebGL&three.js) 学习笔记（二）/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/10/23/交互式3D图形(WebGL&three.js) 学习笔记（二）/" rel="prev" title="交互式3D图形(WebGL&three.js) 学习笔记（二）">
+                交互式3D图形(WebGL&three.js) 学习笔记（二） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -572,7 +571,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-交互式3D图形-WebGL-amp-three-js-学习笔记（一）"><span class="nav-number">1.</span> <span class="nav-text">title:交互式3D图形(WebGL&three.js) 学习笔记（一）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#人眼，小孔成像相机与视锥体"><span class="nav-number">1.1.</span> <span class="nav-text">人眼，小孔成像相机与视锥体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#光线"><span class="nav-number">1.2.</span> <span class="nav-text">光线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何定义一个3D图形化世界"><span class="nav-number">1.3.</span> <span class="nav-text">如何定义一个3D图形化世界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图形渲染管线-Rendering-Pipeline"><span class="nav-number">1.4.</span> <span class="nav-text">图形渲染管线 Rendering Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多边形网格化-Triangulation-and-Tesselation"><span class="nav-number">1.5.</span> <span class="nav-text">多边形网格化 Triangulation and Tesselation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顶点顺序-和-背面剔除"><span class="nav-number">1.6.</span> <span class="nav-text">顶点顺序 和 背面剔除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#画家算法-与-Z-buffer"><span class="nav-number">1.7.</span> <span class="nav-text">画家算法 与 Z-buffer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#画家算法-Painter’s-algorithm"><span class="nav-number">1.7.1.</span> <span class="nav-text">画家算法 Painter’s algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Z-buffer"><span class="nav-number">1.7.2.</span> <span class="nav-text">Z-buffer</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#人眼，小孔成像相机与视锥体"><span class="nav-number">1.</span> <span class="nav-text">人眼，小孔成像相机与视锥体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#光线"><span class="nav-number">2.</span> <span class="nav-text">光线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何定义一个3D图形化世界"><span class="nav-number">3.</span> <span class="nav-text">如何定义一个3D图形化世界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图形渲染管线-Rendering-Pipeline"><span class="nav-number">4.</span> <span class="nav-text">图形渲染管线 Rendering Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多边形网格化-Triangulation-and-Tesselation"><span class="nav-number">5.</span> <span class="nav-text">多边形网格化 Triangulation and Tesselation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顶点顺序-和-背面剔除"><span class="nav-number">6.</span> <span class="nav-text">顶点顺序 和 背面剔除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#画家算法-与-Z-buffer"><span class="nav-number">7.</span> <span class="nav-text">画家算法 与 Z-buffer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#画家算法-Painter’s-algorithm"><span class="nav-number">7.1.</span> <span class="nav-text">画家算法 Painter’s algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Z-buffer"><span class="nav-number">7.2.</span> <span class="nav-text">Z-buffer</span></a></li></ol></li></ol></div>
             
 
           </div>
