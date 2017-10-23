@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="title:交互式3D图形(WebGL&amp;amp;three.js) 学习笔记（一） 课程《交互式3D图形》的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第一篇，对应Lesson 1 - Introduction。  人眼，小孔成像相机与视锥体与人眼最大的不同是，pinhole cemera是倒立成像的，但为了简化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dora&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/10/23/交互式3D图形(WebGL&three.js) 学习笔记（一）/index.html">
+<meta property="og:site_name" content="Dora&#39;s blog">
+<meta property="og:description" content="title:交互式3D图形(WebGL&amp;amp;three.js) 学习笔记（一） 课程《交互式3D图形》的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第一篇，对应Lesson 1 - Introduction。  人眼，小孔成像相机与视锥体与人眼最大的不同是，pinhole cemera是倒立成像的，但为了简化">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/Pasted%20Graphic.png">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/Pasted%20Graphic%204.png?imageView2/0/w/400">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/Pasted%20Graphic%203.png?imageView2/0/w/400">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/triangulation.png?imageView2/0/w/300">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/vertexorder.png?imageView2/0/w/400">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/overlap.png?imageView2/0/w/100">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/z-buffer.png?imageView2/0/w/400">
+<meta property="og:updated_time" content="2017-10-23T08:27:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dora&#39;s blog">
+<meta name="twitter:description" content="title:交互式3D图形(WebGL&amp;amp;three.js) 学习笔记（一） 课程《交互式3D图形》的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第一篇，对应Lesson 1 - Introduction。  人眼，小孔成像相机与视锥体与人眼最大的不同是，pinhole cemera是倒立成像的，但为了简化">
+<meta name="twitter:image" content="http://ooaqxiz7b.bkt.clouddn.com/Pasted%20Graphic.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/23/交互式3D图形(WebGL&three.js) 学习笔记（一）/"/>
+
+
+
+
+
+  <title> | Dora's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dora's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/交互式3D图形(WebGL&three.js) 学习笔记（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="oraisdy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dora's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T16:27:57+08:00">
+                2017-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h2 id="title-交互式3D图形-WebGL-amp-three-js-学习笔记（一）"><a href="#title-交互式3D图形-WebGL-amp-three-js-学习笔记（一）" class="headerlink" title="title:交互式3D图形(WebGL&amp;three.js) 学习笔记（一）"></a>title:交互式3D图形(WebGL&amp;three.js) 学习笔记（一）</h2><blockquote>
+<p>课程<a href="https://cn.udacity.com/course/interactive-3d-graphics--cs291" target="_blank" rel="external">《交互式3D图形》</a>的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第一篇，对应Lesson 1 - Introduction。</p>
+</blockquote>
+<h3 id="人眼，小孔成像相机与视锥体"><a href="#人眼，小孔成像相机与视锥体" class="headerlink" title="人眼，小孔成像相机与视锥体"></a>人眼，小孔成像相机与视锥体</h3><p>与人眼最大的不同是，<code>pinhole cemera</code>是倒立成像的，但为了简化，我们认为相机将图像正立的呈现在它前方。我们将从这个虚拟屏幕到相机远平面之间的这个菱台称为<code>view frustum</code>。<br><img src="http://ooaqxiz7b.bkt.clouddn.com/Pasted%20Graphic.png" alt="image"></p>
+<p>查看<code>three.js</code>中最常用的相机<code>PerspectiveCamera</code>的构造函数，可以发现就是借助这个视锥体来模拟人眼看到的效果的。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">PerspectiveCamera( fov, aspect, near, far )</div><div class="line"></div><div class="line">fov — Camera frustum vertical field <span class="keyword">of</span> view.</div><div class="line">aspect — Camera frustum aspect ratio.</div><div class="line">near — Camera frustum near plane.</div><div class="line">far — Camera frustum far plane.</div></pre></td></tr></table></figure></p>
+<h3 id="光线"><a href="#光线" class="headerlink" title="光线"></a>光线</h3><p>现实生活中一个灯泡会产生数以万计的光子在介质间传播、反射和被吸收。在计算机图形学中为了简化计算，只有那些能够到达相机的光子需要计算来构成图像。</p>
+<p>如何知道哪些光子是有意义的呢？光子是由光源产生的，但我们不知道它们会落到哪里。所以我们逆转这个过程，对于一个方向射来的光线，我们使用像素（<code>pixel</code>）来记录它，去考虑如果从观察处的每个像素发射一条线路，可以看到什么。</p>
+<p>我们计算可见的一个像素点被到达它的每一条光线的效果并将它们累计起来。同时认为没有东西会阻挡光线，每个表面被认为是对光可见的除非它们背对光源。也就是说，没有物体投射阴影。</p>
+<p><img src="http://ooaqxiz7b.bkt.clouddn.com/Pasted%20Graphic%204.png?imageView2/0/w/400" alt="image"></p>
+<p><img src="http://ooaqxiz7b.bkt.clouddn.com/Pasted%20Graphic%203.png?imageView2/0/w/400" alt="image"></p>
+<blockquote>
+<p>The computer renders a 3D scene by determining how much light comes from each direction.</p>
+</blockquote>
+<h3 id="如何定义一个3D图形化世界"><a href="#如何定义一个3D图形化世界" class="headerlink" title="如何定义一个3D图形化世界"></a>如何定义一个3D图形化世界</h3><ol>
+<li>define a world - Scene</li>
+<li>Objects<ul>
+<li>3D geomertry(describe object)</li>
+<li>material( defines how light interact with it)</li>
+<li>animate</li>
+</ul>
+</li>
+<li>light</li>
+<li>camera</li>
+</ol>
+<h3 id="图形渲染管线-Rendering-Pipeline"><a href="#图形渲染管线-Rendering-Pipeline" class="headerlink" title="图形渲染管线 Rendering Pipeline"></a>图形渲染管线 Rendering Pipeline</h3><p>Application -&gt; Camera &amp; Model transform -&gt; Rasterization</p>
+<p>GPU采用<code>pipeline</code>与<code>parallelism</code>技术来获得更快的渲染速度。</p>
+<p>这部分的完整信息在后面的课程笔记里。</p>
+<h3 id="多边形网格化-Triangulation-and-Tesselation"><a href="#多边形网格化-Triangulation-and-Tesselation" class="headerlink" title="多边形网格化 Triangulation and Tesselation"></a>多边形网格化 Triangulation and Tesselation</h3><ul>
+<li>Triangulation：对于构建一个表面，GPU只接受三角形。因此我们将所有的多边形切割成三角形。</li>
+<li><code>Triangulation</code> 是 <code>Tesselation</code> 的一种特殊形式。<br><img src="http://ooaqxiz7b.bkt.clouddn.com/triangulation.png?imageView2/0/w/300" alt="image"></li>
+</ul>
+<h3 id="顶点顺序-和-背面剔除"><a href="#顶点顺序-和-背面剔除" class="headerlink" title="顶点顺序 和 背面剔除"></a>顶点顺序 和 背面剔除</h3><p>为了优化，GPU不会去渲染物体的那些不可见的背面（<code>Backface culling</code>），从而起到加速渲染的作用。<br>关于如何区分一个表面是正面还是背面，<code>WebGL</code>使用的是右手定则。当顶点顺序（<code>Vertex order</code>）是逆时针排列时，三角形是正面；否则就是背面。</p>
+<p><img src="http://ooaqxiz7b.bkt.clouddn.com/vertexorder.png?imageView2/0/w/400" alt="image"></p>
+<h3 id="画家算法-与-Z-buffer"><a href="#画家算法-与-Z-buffer" class="headerlink" title="画家算法 与 Z-buffer"></a>画家算法 与 Z-buffer</h3><p>为了解决重叠（overlap）的问题：哪一个物体是可见的呢？</p>
+<h4 id="画家算法-Painter’s-algorithm"><a href="#画家算法-Painter’s-algorithm" class="headerlink" title="画家算法 Painter’s algorithm"></a>画家算法 Painter’s algorithm</h4><ul>
+<li>to draw each object one on top of the other</li>
+<li>从远到近依次绘制，这样最近的最后被绘制就会遮住后面的所有物体</li>
+<li>但不能解决这样的问题：<img src="http://ooaqxiz7b.bkt.clouddn.com/overlap.png?imageView2/0/w/100" alt="image"></li>
+</ul>
+<h4 id="Z-buffer"><a href="#Z-buffer" class="headerlink" title="Z-buffer"></a>Z-buffer</h4><ul>
+<li>GPU使用Z-Buffer来解决可见性问题</li>
+<li>思想：对于每个像素，计算哪个物体距离观察点最近，使用最近的物体的颜色来显示这个像素。</li>
+<li><p>步骤：</p>
+<ol>
+<li>当渲染图像时，对于每个pixel不仅存储一个color，还存储一个z-depth。<br>z-depth：浮点数（近）0-1（远）</li>
+<li>将物体的z-depth与当前z-buffer中的值作比较。如果当前物体的距离比存储的z-depth值小，那么这个物体离camera更近，它的颜色被存进图像的color buffer；如果比存储的z-depth大，则pixel的颜色不被改变。</li>
+<li><p>对于每个物体进行<code>ii.</code>，最终每个pixel里会存储最近物体的颜色，展现出整个图像。</p>
+<p><img src="http://ooaqxiz7b.bkt.clouddn.com/z-buffer.png?imageView2/0/w/400" alt="image"></p>
+</li>
+</ol>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>STEP</th>
+<th>DEPTH OF OBJECT</th>
+<th>CURRENT Z_DEPTH</th>
+<th>RESULT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.6</td>
+<td>1.0</td>
+<td>0.6</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.3</td>
+<td>0.6</td>
+<td>0.3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.8</td>
+<td>0.3</td>
+<td>0.3</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/05/require和import/" rel="next" title="天天都在用的require和import我为什么还是错">
+                <i class="fa fa-chevron-left"></i> 天天都在用的require和import我为什么还是错
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/23/交互式3D图形(WebGL&three.js) 学习笔记（二）/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460"
+               alt="oraisdy" />
+          <p class="site-author-name" itemprop="name">oraisdy</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-交互式3D图形-WebGL-amp-three-js-学习笔记（一）"><span class="nav-number">1.</span> <span class="nav-text">title:交互式3D图形(WebGL&three.js) 学习笔记（一）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#人眼，小孔成像相机与视锥体"><span class="nav-number">1.1.</span> <span class="nav-text">人眼，小孔成像相机与视锥体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#光线"><span class="nav-number">1.2.</span> <span class="nav-text">光线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何定义一个3D图形化世界"><span class="nav-number">1.3.</span> <span class="nav-text">如何定义一个3D图形化世界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图形渲染管线-Rendering-Pipeline"><span class="nav-number">1.4.</span> <span class="nav-text">图形渲染管线 Rendering Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多边形网格化-Triangulation-and-Tesselation"><span class="nav-number">1.5.</span> <span class="nav-text">多边形网格化 Triangulation and Tesselation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顶点顺序-和-背面剔除"><span class="nav-number">1.6.</span> <span class="nav-text">顶点顺序 和 背面剔除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#画家算法-与-Z-buffer"><span class="nav-number">1.7.</span> <span class="nav-text">画家算法 与 Z-buffer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#画家算法-Painter’s-algorithm"><span class="nav-number">1.7.1.</span> <span class="nav-text">画家算法 Painter’s algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Z-buffer"><span class="nav-number">1.7.2.</span> <span class="nav-text">Z-buffer</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oraisdy</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
