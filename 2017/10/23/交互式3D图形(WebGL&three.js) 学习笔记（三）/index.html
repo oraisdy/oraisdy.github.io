@@ -101,15 +101,17 @@
 <meta property="og:site_name" content="Dora&#39;s blog">
 <meta property="og:description" content="课程《交互式3D图形》的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第三篇，对应Lesson 3 - Color &amp;amp; Materials 和 Lesson 6 - Light。  基本的着色方法 物体离光源越近会越亮 直视反射光时会有高亮（镜面反射） 当光没有直接照射物体时，物体会更暗（漫反射） 用环境光">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/basicmaterial.png?imageView2/0/h/200">
-<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/diffusematerial.png?imageView2/0/h/200">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/surfacecolor.png">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/diffuseformula1.png?imageView2/0/h/30">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/diffuseformula2.png?imageView2/0/h/30">
+<meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/QQ20171023-164921@2x.png?imageView2/0/h/200">
 <meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/shadingnormal_geometricnormal.png">
 <meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/diffusematerial2.png?imageView2/0/h/200">
-<meta property="og:updated_time" content="2017-10-23T08:34:35.000Z">
+<meta property="og:updated_time" content="2017-10-23T08:50:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="交互式3D图形(WebGL&amp;three.js) 学习笔记（三）">
 <meta name="twitter:description" content="课程《交互式3D图形》的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第三篇，对应Lesson 3 - Color &amp;amp; Materials 和 Lesson 6 - Light。  基本的着色方法 物体离光源越近会越亮 直视反射光时会有高亮（镜面反射） 当光没有直接照射物体时，物体会更暗（漫反射） 用环境光">
-<meta name="twitter:image" content="http://ooaqxiz7b.bkt.clouddn.com/basicmaterial.png?imageView2/0/h/200">
+<meta name="twitter:image" content="http://ooaqxiz7b.bkt.clouddn.com/surfacecolor.png">
 
 
 
@@ -370,20 +372,21 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Surface Color =   </div><div class="line">   Emissive + </div><div class="line">Ambient +  </div><div class="line">For Each Light:  </div><div class="line">	Diffuse(light) + Specular(light, view)</div></pre></td></tr></table></figure>
+<p><img src="http://ooaqxiz7b.bkt.clouddn.com/surfacecolor.png" alt="image"></p>
 <h3 id="材质-Material"><a href="#材质-Material" class="headerlink" title="材质 Material"></a>材质 Material</h3><blockquote>
 <p>3D场景中所看到的任何物件都是几何Geometry加上材质Material的呈现</p>
 <h4 id="Diffuse-material"><a href="#Diffuse-material" class="headerlink" title="Diffuse material"></a>Diffuse material</h4><p>漫反射向量的效果取决于物体的表面和光的方向。当一定量的光线到达某表面，该表面根据光到达时的角度而不同程度地被照亮。为了确定光在物体上的作用，我们需要引入表面的法线<code>normal</code>。</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">color = MaterialDiffuseColor * LightColor * cosTheta;</div></pre></td></tr></table></figure>
+<p><img src="http://ooaqxiz7b.bkt.clouddn.com/diffuseformula1.png?imageView2/0/h/30" alt="image"></p>
 <p>为了将材质由不受场景光影响的固定颜色加上漫反射的作用，在<code>three.js</code>中，只需要从<code>MeshBasicMaterial</code>改为<code>MeshLambertMaterial</code>就可以了。</p>
-<p><code>MeshLambertMaterial</code>采用了以下公式:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">C=ambient+color* \sum(N*Li)</div></pre></td></tr></table></figure></p>
+<p><code>MeshLambertMaterial</code>采用了以下公式:</p>
+<p><img src="http://ooaqxiz7b.bkt.clouddn.com/diffuseformula2.png?imageView2/0/h/30" alt="image"></p>
 <blockquote>
 <p>This second term is the diffuse contribution. It is the color of the material times the sum of the<br>lights’ contributions, which is the surface normal dotted with each light’s direction.</p>
 </blockquote>
 <p><code>three</code>代码如下(为了接下来解释不同的<code>shading model</code>，这里故意设置了<code>FlatShading</code>)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">material = new THREE.MeshLambertMaterial( &#123; color: 0x80fc66, shading: THREE.FlatShading &#125; );</div></pre></td></tr></table></figure></p>
 <p>basic material vs. diffuse material:</p>
-<p><img src="http://ooaqxiz7b.bkt.clouddn.com/basicmaterial.png?imageView2/0/h/200" alt="image"><br><img src="http://ooaqxiz7b.bkt.clouddn.com/diffusematerial.png?imageView2/0/h/200" alt="image"></p>
+<p><img src="http://ooaqxiz7b.bkt.clouddn.com/QQ20171023-164921@2x.png?imageView2/0/h/200" alt="image"></p>
 <p>经过这一步，会发现小球已经收到了场景中光源的影响，但美中不足的是表面不够平滑，能看到表面的三角形网格。这是由于我们采用了<code>Flat shading</code>， 计算的是几何法线，相当于边的法向量，这样会导致整个三角形呈现一样的颜色。为了让这个网格构成的小球表面更平滑，我们需要引入<code>shading normal</code>，它的作用是通过计算该顶点的所有三角形的法线的均值得到顶点法线（实际上这里有不同的计算方法，略过）。</p>
 <p><img src="http://ooaqxiz7b.bkt.clouddn.com/shadingnormal_geometricnormal.png" alt="image"></p>
 <p>只要把刚刚的<code>shading: THREE.FlatShading</code>去掉，就会采用顶点法线，实现表面平滑了。</p>
