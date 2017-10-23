@@ -108,7 +108,7 @@
 <meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/vertexorder.png?imageView2/0/w/400">
 <meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/overlap.png?imageView2/0/w/100">
 <meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/z-buffer.png?imageView2/0/w/400">
-<meta property="og:updated_time" content="2017-10-23T08:34:09.000Z">
+<meta property="og:updated_time" content="2017-10-23T08:56:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="交互式3D图形(WebGL&amp;three.js) 学习笔记（一）">
 <meta name="twitter:description" content="课程《交互式3D图形》的学习笔记，课程讲解采用的接口是WebGL和three.js。学习这个课程只是为了使用Three.js前的一些图形学基础科普。这是第一篇，对应Lesson 1 - Introduction。  人眼，小孔成像相机与视锥体与人眼最大的不同是，pinhole cemera是倒立成像的，但为了简化，我们认为相机将图像正立的呈现在它前方。我们将从这个虚拟屏幕到相机远平面之间的这个菱">
@@ -350,7 +350,7 @@
 <blockquote>
 <p>The computer renders a 3D scene by determining how much light comes from each direction.</p>
 </blockquote>
-<h3 id="如何定义一个3D图形化世界"><a href="#如何定义一个3D图形化世界" class="headerlink" title="如何定义一个3D图形化世界"></a>如何定义一个3D图形化世界</h3><ol>
+<h3 id="如何定义一个3D世界"><a href="#如何定义一个3D世界" class="headerlink" title="如何定义一个3D世界"></a>如何定义一个3D世界</h3><ol>
 <li>define a world - Scene</li>
 <li>Objects<ul>
 <li>3D geomertry(describe object)</li>
@@ -571,7 +571,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#人眼，小孔成像相机与视锥体"><span class="nav-number">1.</span> <span class="nav-text">人眼，小孔成像相机与视锥体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#光线"><span class="nav-number">2.</span> <span class="nav-text">光线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何定义一个3D图形化世界"><span class="nav-number">3.</span> <span class="nav-text">如何定义一个3D图形化世界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图形渲染管线-Rendering-Pipeline"><span class="nav-number">4.</span> <span class="nav-text">图形渲染管线 Rendering Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多边形网格化-Triangulation-and-Tesselation"><span class="nav-number">5.</span> <span class="nav-text">多边形网格化 Triangulation and Tesselation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顶点顺序-和-背面剔除"><span class="nav-number">6.</span> <span class="nav-text">顶点顺序 和 背面剔除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#画家算法-与-Z-buffer"><span class="nav-number">7.</span> <span class="nav-text">画家算法 与 Z-buffer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#画家算法-Painter’s-algorithm"><span class="nav-number">7.1.</span> <span class="nav-text">画家算法 Painter’s algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Z-buffer"><span class="nav-number">7.2.</span> <span class="nav-text">Z-buffer</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#人眼，小孔成像相机与视锥体"><span class="nav-number">1.</span> <span class="nav-text">人眼，小孔成像相机与视锥体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#光线"><span class="nav-number">2.</span> <span class="nav-text">光线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何定义一个3D世界"><span class="nav-number">3.</span> <span class="nav-text">如何定义一个3D世界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图形渲染管线-Rendering-Pipeline"><span class="nav-number">4.</span> <span class="nav-text">图形渲染管线 Rendering Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多边形网格化-Triangulation-and-Tesselation"><span class="nav-number">5.</span> <span class="nav-text">多边形网格化 Triangulation and Tesselation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顶点顺序-和-背面剔除"><span class="nav-number">6.</span> <span class="nav-text">顶点顺序 和 背面剔除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#画家算法-与-Z-buffer"><span class="nav-number">7.</span> <span class="nav-text">画家算法 与 Z-buffer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#画家算法-Painter’s-algorithm"><span class="nav-number">7.1.</span> <span class="nav-text">画家算法 Painter’s algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Z-buffer"><span class="nav-number">7.2.</span> <span class="nav-text">Z-buffer</span></a></li></ol></li></ol></div>
             
 
           </div>
