@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="title:JavaScript命令模式将一个请求封装成一个对象，从而让你使用不同的请求把客户端参数化，对请求排队或者记录请求日志，可以提供命令的撤销和恢复功能。  命令模式主要有四个部分：  命令对象（command）：需要执行的命令都在此声明 委托者（client）：创建命令对象，并把它传递给调用者 调用者（invoker）：使用命令对象并调用它上面的方法 接受者（receiver）：实际干">
+<meta name="description" content="将一个请求封装成一个对象，从而让你使用不同的请求把客户端参数化，对请求排队或者记录请求日志，可以提供命令的撤销和恢复功能。  命令模式主要有四个部分：  命令对象（command）：需要执行的命令都在此声明 委托者（client）：创建命令对象，并把它传递给调用者 调用者（invoker）：使用命令对象并调用它上面的方法 接受者（receiver）：实际干活的角色，命令传递到这里被实际执行  代码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dora&#39;s blog">
+<meta property="og:title" content="JavaScript命令模式">
 <meta property="og:url" content="http://yoursite.com/2017/12/02/JavaScript命令模式/index.html">
 <meta property="og:site_name" content="Dora&#39;s blog">
-<meta property="og:description" content="title:JavaScript命令模式将一个请求封装成一个对象，从而让你使用不同的请求把客户端参数化，对请求排队或者记录请求日志，可以提供命令的撤销和恢复功能。  命令模式主要有四个部分：  命令对象（command）：需要执行的命令都在此声明 委托者（client）：创建命令对象，并把它传递给调用者 调用者（invoker）：使用命令对象并调用它上面的方法 接受者（receiver）：实际干">
+<meta property="og:description" content="将一个请求封装成一个对象，从而让你使用不同的请求把客户端参数化，对请求排队或者记录请求日志，可以提供命令的撤销和恢复功能。  命令模式主要有四个部分：  命令对象（command）：需要执行的命令都在此声明 委托者（client）：创建命令对象，并把它传递给调用者 调用者（invoker）：使用命令对象并调用它上面的方法 接受者（receiver）：实际干活的角色，命令传递到这里被实际执行  代码">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ooaqxiz7b.bkt.clouddn.com/command.jpg">
-<meta property="og:updated_time" content="2017-12-02T13:32:23.000Z">
+<meta property="og:updated_time" content="2017-12-02T13:37:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dora&#39;s blog">
-<meta name="twitter:description" content="title:JavaScript命令模式将一个请求封装成一个对象，从而让你使用不同的请求把客户端参数化，对请求排队或者记录请求日志，可以提供命令的撤销和恢复功能。  命令模式主要有四个部分：  命令对象（command）：需要执行的命令都在此声明 委托者（client）：创建命令对象，并把它传递给调用者 调用者（invoker）：使用命令对象并调用它上面的方法 接受者（receiver）：实际干">
+<meta name="twitter:title" content="JavaScript命令模式">
+<meta name="twitter:description" content="将一个请求封装成一个对象，从而让你使用不同的请求把客户端参数化，对请求排队或者记录请求日志，可以提供命令的撤销和恢复功能。  命令模式主要有四个部分：  命令对象（command）：需要执行的命令都在此声明 委托者（client）：创建命令对象，并把它传递给调用者 调用者（invoker）：使用命令对象并调用它上面的方法 接受者（receiver）：实际干活的角色，命令传递到这里被实际执行  代码">
 <meta name="twitter:image" content="http://ooaqxiz7b.bkt.clouddn.com/command.jpg">
 
 
@@ -141,7 +141,7 @@
 
 
 
-  <title> | Dora's blog</title>
+  <title>JavaScript命令模式 | Dora's blog</title>
   
 
 
@@ -281,7 +281,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">JavaScript命令模式</h1>
         
 
         <div class="post-meta">
@@ -331,8 +331,7 @@
       
 
       
-        <hr>
-<h2 id="title-JavaScript命令模式"><a href="#title-JavaScript命令模式" class="headerlink" title="title:JavaScript命令模式"></a>title:JavaScript命令模式</h2><p>将一个请求封装成一个对象，从而让你使用不同的请求把客户端参数化，对请求排队或者记录请求日志，可以提供命令的撤销和恢复功能。</p>
+        <p>将一个请求封装成一个对象，从而让你使用不同的请求把客户端参数化，对请求排队或者记录请求日志，可以提供命令的撤销和恢复功能。</p>
 <p><img src="http://ooaqxiz7b.bkt.clouddn.com/command.jpg" alt="image"></p>
 <p>命令模式主要有四个部分：</p>
 <ul>
@@ -431,17 +430,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460"
@@ -485,22 +475,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-JavaScript命令模式"><span class="nav-number">1.</span> <span class="nav-text">title:JavaScript命令模式</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
