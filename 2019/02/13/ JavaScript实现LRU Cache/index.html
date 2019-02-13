@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="###LeetCode上的一道题目今天在LeetCode上看到一道题：[LeetCode]146. LRU Cache Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put. get(key)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript实现LRU Cache">
+<meta property="og:url" content="http://yoursite.com/2019/02/13/ JavaScript实现LRU Cache/index.html">
+<meta property="og:site_name" content="Dora&#39;s blog">
+<meta property="og:description" content="###LeetCode上的一道题目今天在LeetCode上看到一道题：[LeetCode]146. LRU Cache Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put. get(key)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-13T11:38:49.480Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript实现LRU Cache">
+<meta name="twitter:description" content="###LeetCode上的一道题目今天在LeetCode上看到一道题：[LeetCode]146. LRU Cache Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put. get(key)">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/13/ JavaScript实现LRU Cache/"/>
+
+
+
+
+
+  <title>JavaScript实现LRU Cache | Dora's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dora's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/ JavaScript实现LRU Cache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="oraisdy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dora's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript实现LRU Cache</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-13T19:30:29+08:00">
+                2019-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>###LeetCode上的一道题目<br>今天在LeetCode上看到一道题：<a href="https://leetcode.com/problems/lru-cache/" target="_blank" rel="external">[LeetCode]146. LRU Cache</a></p>
+<p>Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: <code>get</code> and <code>put</code>.</p>
+<p><code>get(key)</code> - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.<br><code>put(key, value)</code> - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.</p>
+<p>Follow up:<br>Could you do both operations in <em>O(1)</em> time complexity?</p>
+<p>Example:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">LRUCache cache = new LRUCache( 2 /* capacity */ );</div><div class="line"></div><div class="line">cache.put(1, 1);</div><div class="line">cache.put(2, 2);</div><div class="line">cache.get(1);       // returns 1</div><div class="line">cache.put(3, 3);    // evicts key 2</div><div class="line">cache.get(2);       // returns -1 (not found)</div><div class="line">cache.put(4, 4);    // evicts key 1</div><div class="line">cache.get(1);       // returns -1 (not found)</div><div class="line">cache.get(3);       // returns 3</div><div class="line">cache.get(4);       // returns 4</div></pre></td></tr></table></figure>
+<h3 id="JavaScript解法"><a href="#JavaScript解法" class="headerlink" title="JavaScript解法"></a>JavaScript解法</h3><p>分析一下题目的意思，这道题是让我们设计一个LRU（最近最少使用）缓存。</p>
+<ul>
+<li>调用<code>get</code>方法时查找缓存中对应<code>key</code>的值。</li>
+<li>调用<code>put</code>时可以加入或者更新键值。</li>
+<li>每次调用<code>get</code>和<code>put</code>的时候，都会刷新键值为“最近使用”；而且插入新值的时候如果超出<code>capacity</code>最旧的键值会被舍弃。</li>
+<li>Follow up 中要求<code>get</code>和<code>put</code>的时间复杂度都是O(1)</li>
+</ul>
+<p>既然要实现插入和查找都是O(1)复杂度的键值存取，首先直接会想到HashMap。但要同时实现LRU机制，单单一个无序的HashMap是不够的。这里我想到了Java里面的LinkedHashMap，它可以保留hashmap的插入或者访问顺序。那么在JavaScript中怎么实现呢？可以用一个链表来保存键值对的顺序，对于<code>get</code>和<code>put</code>已有的值，都是去掉节点再加到结尾；注意如果超出了capacity，就直接去掉代表最旧节点的链表head就行了。为了方便快速在链表中找到已有的值，可以直接在hashmap里面保存链表节点的对象。</p>
+<p>实现起来再到修修改改到通过OJ还是费了很多工夫的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(key, value) &#123;</div><div class="line">    <span class="keyword">this</span>.key = key;</div><div class="line">    <span class="keyword">this</span>.val = value;</div><div class="line">    <span class="keyword">this</span>.prev = <span class="literal">null</span>;</div><div class="line">    <span class="keyword">this</span>.next = <span class="literal">null</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(capacity) &#123;</div><div class="line">    <span class="keyword">this</span>.cap = capacity;</div><div class="line">    <span class="keyword">this</span>.map = &#123;&#125;;</div><div class="line">    <span class="comment">// 实际保存的键值对数量</span></div><div class="line">    <span class="keyword">this</span>.size = <span class="number">0</span>;</div><div class="line">    <span class="comment">// 代表最旧的结点</span></div><div class="line">    <span class="keyword">this</span>.head = <span class="literal">null</span>;</div><div class="line">    <span class="comment">// 代表最新的结点</span></div><div class="line">    <span class="keyword">this</span>.tail = <span class="literal">null</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  get(key) &#123;</div><div class="line">    <span class="keyword">if</span> (!(key <span class="keyword">in</span> <span class="keyword">this</span>.map)) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">let</span> node = <span class="keyword">this</span>.map[key];</div><div class="line">    <span class="keyword">this</span>.put(node.key, node.val);</div><div class="line">    <span class="keyword">return</span> node.val;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  addToTail(node) &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.tail) &#123;</div><div class="line">      <span class="keyword">this</span>.tail.next = node;</div><div class="line">      node.prev = <span class="keyword">this</span>.tail;</div><div class="line">      <span class="keyword">this</span>.tail = node;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">this</span>.tail = <span class="keyword">this</span>.head = node;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  remove(node) &#123;</div><div class="line">    <span class="keyword">if</span> (node.prev) &#123;</div><div class="line">      node.prev.next = node.next;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">this</span>.head = <span class="keyword">this</span>.head.next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (node.next) &#123;</div><div class="line">      node.next.prev = node.prev;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">this</span>.tail = <span class="keyword">this</span>.tail.prev;</div><div class="line">    &#125;</div><div class="line">    node.prev = node.next = <span class="literal">null</span>;</div><div class="line">  &#125;</div><div class="line">  put(key, value) &#123;</div><div class="line">    <span class="keyword">if</span> (key <span class="keyword">in</span> <span class="keyword">this</span>.map) &#123;</div><div class="line">      <span class="keyword">let</span> node = <span class="keyword">this</span>.map[key];</div><div class="line">      node.val = value;</div><div class="line">      <span class="keyword">this</span>.remove(node);</div><div class="line">      <span class="keyword">this</span>.addToTail(node);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">let</span> node = <span class="keyword">new</span> ListNode(key, value);</div><div class="line">      <span class="keyword">this</span>.addToTail(node);</div><div class="line">      <span class="keyword">this</span>.map[key] = node;</div><div class="line">      <span class="keyword">this</span>.size++;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 超出capacity，淘汰最老的</span></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.size &gt; <span class="keyword">this</span>.cap) &#123;</div><div class="line">      <span class="keyword">let</span> key = <span class="keyword">this</span>.head.key;</div><div class="line">      <span class="keyword">this</span>.remove(<span class="keyword">this</span>.head);</div><div class="line">      <span class="keyword">delete</span> <span class="keyword">this</span>.map[key];</div><div class="line">      <span class="keyword">this</span>.size--;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="ES6-Map的简单解法"><a href="#ES6-Map的简单解法" class="headerlink" title="ES6 Map的简单解法"></a>ES6 Map的简单解法</h3><p>这种解法是之后看到别人的做法：<a href="https://leetcode.com/problems/lru-cache/discuss/134851/ES6-Javascript-O(1" target="_blank" rel="external">ES6 Javascript, O(1), one Map, fewest lines of code</a>-one-Map-fewest-lines-of-code/155303)</p>
+<p>划重点，ES6的Map遍历顺序就是插入顺序！所以这种解法非常简洁，学习一下。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(capacity) &#123;</div><div class="line">    <span class="keyword">this</span>.capacity = capacity;</div><div class="line">    <span class="keyword">this</span>.map = <span class="keyword">new</span> <span class="built_in">Map</span>();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  get(key) &#123;</div><div class="line">    <span class="keyword">let</span> val = <span class="keyword">this</span>.map.get(key);</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> val === <span class="string">'undefined'</span>) &#123; <span class="keyword">return</span> <span class="number">-1</span> &#125;</div><div class="line">    <span class="keyword">this</span>.map.delete(key);</div><div class="line">    <span class="keyword">this</span>.map.set(key, val);</div><div class="line">    <span class="keyword">return</span> val;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  put(key, value) &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.map.has(key)) &#123; <span class="keyword">this</span>.map.delete(key) &#125;</div><div class="line">    <span class="keyword">this</span>.map.set(key, value);</div><div class="line">    <span class="keyword">let</span> keys = <span class="keyword">this</span>.map.keys();</div><div class="line">    <span class="keyword">while</span> (<span class="keyword">this</span>.map.size &gt; <span class="keyword">this</span>.capacity) &#123; <span class="keyword">this</span>.map.delete(keys.next().value) &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/22/《人月神话》读书笔记/" rel="next" title="《人月神话》读书笔记">
+                <i class="fa fa-chevron-left"></i> 《人月神话》读书笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/11753004?v=4&s=460"
+               alt="oraisdy" />
+          <p class="site-author-name" itemprop="name">oraisdy</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript解法"><span class="nav-number">1.</span> <span class="nav-text">JavaScript解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-Map的简单解法"><span class="nav-number">2.</span> <span class="nav-text">ES6 Map的简单解法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oraisdy</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
